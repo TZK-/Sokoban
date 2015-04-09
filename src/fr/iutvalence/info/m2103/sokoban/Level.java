@@ -1,30 +1,35 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+/**
+ * Represents a level of Sokoban
+ * @author Thibault
+ *
+ */
 public class Level {
 	
 	/**
-	 * Numéro du niveau par défaut
+	 * Default level number
 	 */
-	public static final int NIVEAU_PAR_DEFAUT = 1;
+	public static final int DEFAULT_LEVEL = 1;
 	
 	/**
-	 * Numéro du niveau
+	 * Level number
 	 */
-	private int numeroNiveau;
+	private int levelNumber;
 	
 	/**
-	 * Construit le niveau par défaut
+	 * Creates the default level
 	 */
 	public Level(){
-		this.numeroNiveau = Level.NIVEAU_PAR_DEFAUT;
+		this.levelNumber = Level.DEFAULT_LEVEL;
 	}
 	
 	/**
-	 * Construit un niveau
-	 * @param numeroNiveau le numéro de niveau a créer
+	 * Creates a new level
+	 * @param levelNumber The level number to create
 	 */
-	public Level(int numeroNiveau){
-		this.numeroNiveau = numeroNiveau;
+	public Level(int levelNumber){
+		this.levelNumber = levelNumber;
 	}
 	
 }
