@@ -1,29 +1,39 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+/**
+ * Represents a position
+ * @author Thibault - Mathie
+ *
+ */
 public class Position {
 	
 	/**
-	 * Position en abscisse 
+	 * The value of default axis
+	 */
+	public final static int DEFAULT_POSITION = 0;
+	
+	/**
+	 * X-axis position 
 	 */
 	private final int posX;
 	
 	/**
-	 * Postion en ordonnee
+	 * Y-axis position
 	 */
 	private final int posY;
 	
 	/**
-	 * Construit une position par defaut: (0, 0)
+	 * Creates a new position with coordinates (0, 0)
 	 */
 	public Position(){
-		this.posX = 0;
-		this.posY = 0;
+		this.posX = Position.DEFAULT_POSITION;
+		this.posY = Position.DEFAULT_POSITION;
 	}
 	
 	/**
-	 * Construit une position
-	 * @param posX La position en abscisse
-	 * @param posY La position en ordonnée
+	 * Create a new position with the values passed as parameters
+	 * @param posX the X-axis position
+	 * @param posY the Y-axis position
 	 */
 	public Position(int posX, int posY){
 		this.posX = posX;
@@ -31,8 +41,8 @@ public class Position {
 	}
 
 	/**
-	 * Retourne la valeur de l'abscisse
-	 * @return La valeur de l'abscisse
+	 * Returns the value of the X-axis
+	 * @return the value of the X-axis
 	 */
 	public int getPosX() {
 		return posX;
@@ -40,8 +50,8 @@ public class Position {
 
 	
 	/**
-	 * Retourne la valeur de l'ordonnée
-	 * @return La valeur de l'ordonnée
+	 * Returns the value of the Y-axis
+	 * @return the value of the Y-axis
 	 */
 	public int getPosY() {
 		return posY;
