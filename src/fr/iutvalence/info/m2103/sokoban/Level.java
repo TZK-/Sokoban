@@ -25,10 +25,9 @@ public class Level {
 	
 	/**
 	 * Creates a new level
-	 * @param levelNumber The level number to create
 	 */
-	public Level(int levelNumber){
-		this.levelNumber = levelNumber;
+	public Level(){
+		this.levelNumber = 1;
 		this.map = new MapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 		
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
@@ -62,6 +61,22 @@ public class Level {
 	public Position getStartingPosition() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	
+	/**
+	 * Return an ASCII representation of the map
+	 */
+	@Override
+	public String toString() {
+		String str = "";
+		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
+			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
+				str += this.map[line][column];
+			}
+			str += "\n";
+		}
+		return str;
 	}
 	
 }
