@@ -45,7 +45,7 @@ public class Position {
 	 * @return the value of the X-axis
 	 */
 	public int getPosX() {
-		return posX;
+		return this.posX;
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class Position {
 	 * @return the value of the Y-axis
 	 */
 	public int getPosY() {
-		return posY;
+		return this.posY;
 	}
 	
 	/**
@@ -71,8 +71,8 @@ public class Position {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + posX;
-		result = prime * result + posY;
+		result = prime * result + this.posX;
+		result = prime * result + this.posY;
 		return result;
 	}
 
@@ -88,9 +88,9 @@ public class Position {
 		if (getClass() != obj.getClass())
 			return false;
 		Position other = (Position) obj;
-		if (posX != other.posX)
+		if (this.posX != other.posX)
 			return false;
-		if (posY != other.posY)
+		if (this.posY != other.posY)
 			return false;
 		return true;
 	}
