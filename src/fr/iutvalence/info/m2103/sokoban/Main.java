@@ -7,8 +7,12 @@ package fr.iutvalence.info.m2103.sokoban;
  */
 public class Main {
 
+	/**
+	 * Application's main
+	 * @param args command-line arguments (unused)
+	 */
 	public static void main(String[] args) {
-		new Sokoban().jouer();
+		new Sokoban().play();
 	}
 
 }
