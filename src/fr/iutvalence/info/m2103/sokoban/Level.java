@@ -46,14 +46,43 @@ public class Level {
 	}
 	
 	/**
-	 * Place a specified element at a given position
+	 * Places a specified element at a given position
 	 * @param pos The position
 	 * @param elem The element
+	 * @return true if the element has been placed
+	 *         else false
 	 */
-	public void placeElement(Position pos, MapElement elem){
+	public boolean placeElement(Position pos, MapElement elem){
+		if(!isValidPosition(pos))
+			return false;
 		this.map[pos.getPosX()][pos.getPosY()] = elem;
+		return true;
 	}
 
+	/**
+	 * Returns the map element at the given position
+	 * @param pos The given position
+	 * @return true if the map element if the position is valid
+	 *         else return null
+	 */
+	public MapElement getMapElement(Position pos){
+		if(!isValidPosition(pos))
+			return null;
+		return this.map[pos.getPosX()][pos.getPosY()];
+	}
+
+	/**
+	 * Checks if the position is valid
+	 * @param pos The position to check
+	 * @return true if the position is valid, else false
+	 */
+	private boolean isValidPosition(Position pos){
+		if((pos.getPosX() < 0 || pos.getPosX() > this.map.length)
+			|| (pos.getPosY() < 0 || pos.getPosY() > this.map.length))
+			return false;
+		return true;
+	}
+	
 	/**
 	 * Returns the starting position where the player will begin
 	 * @return The starting position
