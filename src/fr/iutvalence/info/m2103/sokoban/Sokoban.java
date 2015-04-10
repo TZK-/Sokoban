@@ -28,7 +28,7 @@ public class Sokoban {
 	/**
 	 * Run the game
 	 */
-	public void jouer() {
+	public void play() {
 		
 	}
 
