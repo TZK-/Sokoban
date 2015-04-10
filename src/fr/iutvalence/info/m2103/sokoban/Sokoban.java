@@ -1,16 +1,12 @@
 package fr.iutvalence.info.m2103.sokoban;
 
 /**
- * Manages game of Sokoban
+ * Manages game of Sokoban. 
  * @author Thibault - Mathie
  *
  */
+// TODO Complete javadoc with Sokoban's rules + link
 public class Sokoban {
-	
-	/**
-	 * The player
-	 */
-	private final Player player;
 	
 	/**
 	 * The game level
@@ -19,17 +15,18 @@ public class Sokoban {
 	
 	/**
 	 * Create a new Sokoban
+	 *
 	 */
 	public Sokoban(){
-		this.level = new Level();
-		this.player = new Player(null);
+		// TODO Complete javadoc
+		this.level = new Level(0);
 	}
 	
 	/**
 	 * Run the game
 	 */
 	public void play() {
-		
+		System.out.print(this.level);
 	}
 
 }
