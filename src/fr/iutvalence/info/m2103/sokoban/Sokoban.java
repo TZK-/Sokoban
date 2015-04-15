@@ -7,21 +7,22 @@ package fr.iutvalence.info.m2103.sokoban;
  */
 // TODO Complete javadoc with Sokoban's rules + link
 public class Sokoban {
-	
+
 	/**
 	 * The game level
 	 */
 	private Level level;
-	
+
 	/**
 	 * Create a new Sokoban
-	 *
+	 * Initializing the level 1
+	 * Print the board to the screen
 	 */
 	public Sokoban(){
 		// TODO Complete javadoc
-		this.level = new Level(0);
+		this.level = new Level();
 	}
-	
+
 	/**
 	 * Run the game
 	 */
