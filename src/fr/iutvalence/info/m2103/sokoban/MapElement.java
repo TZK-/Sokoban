@@ -43,10 +43,15 @@ public enum MapElement {
 	BOX_ON_TARGET("*");
 	
 	
-	// TODO write comment
+	/**
+	 * The string representation of the Element
+	 */
 	private String name;
 
-	// TODO write comment
+	/**
+	 * Creates a new Element with a string representation
+	 * @param name The string representation
+	 */
 	MapElement(String name){
 		this.name = name;
 	}
