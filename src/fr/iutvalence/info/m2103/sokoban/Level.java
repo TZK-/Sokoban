@@ -49,10 +49,10 @@ public class Level {
 	 */
 	private Position startingPosition;
 	
-	// TODO finish writing comment
 	/**
-	 * 2D grid of elements (...)
-	 */
+	 * 2D grid of elements
+	 * @see fr.iutvalence.info.m2103.sokoban.MapElement
+	 */ 
 	private MapElement[][] map;
 
 	/**
@@ -60,19 +60,25 @@ public class Level {
 	 */
 	private int levelNumber;
 
-	// TODO detail comment (how is the level once created)
 	/**
-	 * Creates a new level
+	 * Creates a new default level.
+	 * At the end, it looks like this:</br>
+	 *  #####
+	 *  #@$.#
+	 *  #   #
+	 *  #   #
+	 *  #####
+	 *  </br>
+	 *  With WALL as '#', PLAYER as '@',
+	 *       BOX as '$' and TARGET as '.'
 	 */
 	public Level(){
-		// TODO 1 should be declared as a constant
 		this.levelNumber = DEFAULT_LEVEL_NUMBER;
 		
 		this.map = new MapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
-				// TODO if 0 and 4 have a special meaning, they should be declared as constants
 				if(line == WALL_FIRST_LINE || line == WALL_LAST_LINE)
 					this.placeElement(new Position(line, column), MapElement.WALL);
 				else
@@ -85,7 +91,6 @@ public class Level {
 		this.placeElement(new Position(1, 2), MapElement.BOX);
 		this.placeElement(new Position(1, 3), MapElement.TARGET);
 		
-		// TODOD default starting position should be declared as a constant
 		this.startingPosition = STARTING_POSITION;
 	}
 
