@@ -14,12 +14,10 @@ public class Sokoban {
 	private Level level;
 
 	/**
-	 * Create a new Sokoban
-	 * Initializing the level 1
-	 * Print the board to the screen
+	 * Create a new Sokoban, using default level
+	 *  
 	 */
 	public Sokoban(){
-		// TODO Complete javadoc
 		this.level = new Level();
 	}
 
@@ -27,7 +25,9 @@ public class Sokoban {
 	 * Run the game
 	 */
 	public void play() {
-		System.out.print(this.level);
+		System.out.println(this.level);
+		this.level.placeElement(new Position(2,2), MapElement.WALL);
+		System.out.println(this.level);
 	}
 
 }

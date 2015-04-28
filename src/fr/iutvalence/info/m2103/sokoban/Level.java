@@ -2,6 +2,7 @@ package fr.iutvalence.info.m2103.sokoban;
 
 import java.util.Map;
 
+// TODO detail comment
 /**
  * Represents a level of Sokoban
  * @author Thibault - Mathie
@@ -10,13 +11,13 @@ import java.util.Map;
 public class Level {
 
 	/**
-	 * Default level number
+	 * Default map size
 	 */
 	public static final int DEFAULT_MAP_SIZE = 5;
 
+	// TODO finish writing comment
 	/**
-	 * Array of map elements
-	 * Represents the map of the level
+	 * 2D grid of elements (...)
 	 */
 	private MapElement[][] map;
 
@@ -25,17 +26,22 @@ public class Level {
 	 */
 	private int levelNumber;
 	
+	// TODO write comment
 	private Position startingPosition;
 
+	// TODO detail comment (how is the level once created)
 	/**
 	 * Creates a new level
 	 */
 	public Level(){
+		// TODO 1 should be declared as a constant
 		this.levelNumber = 1;
+		
 		this.map = new MapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
+				// TODO if 0 and 4 have a special meaning, they should be declared as constants
 				if(line == 0 || line == 4)
 					this.placeElement(new Position(line, column), MapElement.WALL);
 				else
@@ -48,9 +54,11 @@ public class Level {
 		this.placeElement(new Position(1, 2), MapElement.BOX);
 		this.placeElement(new Position(1, 3), MapElement.TARGET);
 		
+		// TODOD default starting position should be declared as a constant
 		this.startingPosition = new Position(1, 1);
 	}
 
+	// TODO detail comment (why it may fail)
 	/**
 	 * Places a specified element at a given position
 	 * @param pos The position
@@ -77,7 +85,23 @@ public class Level {
 	public boolean moveElement(Position startPos, Position finalPos){
 		if(!isValidPosition(startPos) || !isValidPosition(finalPos))
 			return false;
-		this.placeElement(finalPos, this.getMapElement(startPos));
+		
+		
+		if(this.getMapElement(finalPos) == MapElement.TARGET){
+			if(this.getMapElement(startPos) == MapElement.PLAYER)
+				this.placeElement(finalPos, MapElement.PLAYER_ON_TARGET);
+			else
+				this.placeElement(finalPos, MapElement.BOX_ON_TARGET);
+		}
+		else if (this.getMapElement(startPos) == MapElement.PLAYER_ON_TARGET) {
+		}
+		
+		else{
+			this.placeElement(finalPos, this.getMapElement(startPos));
+		}
+		
+		//TODO remove starting elem
+		
 		return true;
 	}
 
@@ -92,6 +116,8 @@ public class Level {
 			return null;
 		return this.map[pos.getPosX()][pos.getPosY()];
 	}
+	
+	//public boolean 
 
 	/**
 	 * Checks if the position is valid
@@ -103,6 +129,7 @@ public class Level {
 				|| (pos.getPosY() < 0 || pos.getPosY() > this.map.length)
 				|| pos == null)
 			return false;
+		// TODO Check the collisions with walls
 		return true;
 	}
 
@@ -115,7 +142,7 @@ public class Level {
 	}
 
 	/**
-	 * Return an ASCII representation of the map
+	 * Returns an ASCII representation of the map
 	 */
 	@Override
 	public String toString() {

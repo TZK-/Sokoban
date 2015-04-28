@@ -43,8 +43,10 @@ public enum MapElement {
 	BOX_ON_TARGET("*");
 	
 	
+	// TODO write comment
 	private String name;
-	
+
+	// TODO write comment
 	MapElement(String name){
 		this.name = name;
 	}
