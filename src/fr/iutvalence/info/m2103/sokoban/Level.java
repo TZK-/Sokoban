@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import java.util.Map;
+
 /**
  * Represents a level of Sokoban
  * @author Thibault - Mathie
@@ -22,6 +24,8 @@ public class Level {
 	 * Level number
 	 */
 	private int levelNumber;
+	
+	private Position startingPosition;
 
 	/**
 	 * Creates a new level
@@ -43,6 +47,8 @@ public class Level {
 		this.placeElement(new Position(1, 1), MapElement.PLAYER);
 		this.placeElement(new Position(1, 2), MapElement.BOX);
 		this.placeElement(new Position(1, 3), MapElement.TARGET);
+		
+		this.startingPosition = new Position(1, 1);
 	}
 
 	/**
@@ -56,6 +62,22 @@ public class Level {
 		if(!isValidPosition(pos))
 			return false;
 		this.map[pos.getPosX()][pos.getPosY()] = elem;
+		return true;
+	}
+	
+	/**
+	 * Moves a movable map element (PLAYER, BOX, PLAYER_ON_TARGET, BOX_ON_TARGET)
+	 *  from a given position to an other position.</br>
+	 * If the it moves PLAYER or BOX on a TARGET,
+	 *  it will place PLAYER_ON_TARGET or BOX_ON_TARGET.
+	 * @param startPos The starting position
+	 * @param finalPos The final position
+	 * @return <tt>true</tt> if the element has been moved, <tt>false</tt> if not.
+	 */
+	public boolean moveElement(Position startPos, Position finalPos){
+		if(!isValidPosition(startPos) || !isValidPosition(finalPos))
+			return false;
+		this.placeElement(finalPos, this.getMapElement(startPos));
 		return true;
 	}
 
@@ -89,10 +111,8 @@ public class Level {
 	 * @return The starting position
 	 */
 	public Position getStartingPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.startingPosition;
 	}
-
 
 	/**
 	 * Return an ASCII representation of the map
