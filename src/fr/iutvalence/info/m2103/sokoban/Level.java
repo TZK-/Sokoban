@@ -1,6 +1,5 @@
 package fr.iutvalence.info.m2103.sokoban;
 
-import java.util.Map;
 
 // TODO detail comment
 /**
@@ -9,12 +8,47 @@ import java.util.Map;
  *
  */
 public class Level {
+	
+	/**
+	 * 
+	 */
+	private static final int DEFAULT_LEVEL_NUMBER = 1;
+	
+	/**
+	 * 
+	 */
+	private static final int WALL_FIRST_LINE = 0;
 
+	/**
+	 * 
+	 */
+	private static final int WALL_LAST_LINE = 4;
+	
+	/**
+	 * 
+	 */
+	private static final int WALL_FIRST_COLUMN = 0;
+	
+	/**
+	 * 
+	 */
+	private static final int WALL_LAST_COLUMN = 4;
+	
+	/**
+	 * The starting default position of the player
+	 */
+	private static final Position STARTING_POSITION = new Position(1,1);
+	
 	/**
 	 * Default map size
 	 */
 	public static final int DEFAULT_MAP_SIZE = 5;
 
+	/**
+	 * The starting position of the player
+	 */
+	private Position startingPosition;
+	
 	// TODO finish writing comment
 	/**
 	 * 2D grid of elements (...)
@@ -25,9 +59,6 @@ public class Level {
 	 * Level number
 	 */
 	private int levelNumber;
-	
-	// TODO write comment
-	private Position startingPosition;
 
 	// TODO detail comment (how is the level once created)
 	/**
@@ -35,36 +66,35 @@ public class Level {
 	 */
 	public Level(){
 		// TODO 1 should be declared as a constant
-		this.levelNumber = 1;
+		this.levelNumber = DEFAULT_LEVEL_NUMBER;
 		
 		this.map = new MapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
 				// TODO if 0 and 4 have a special meaning, they should be declared as constants
-				if(line == 0 || line == 4)
+				if(line == WALL_FIRST_LINE || line == WALL_LAST_LINE)
 					this.placeElement(new Position(line, column), MapElement.WALL);
 				else
 					this.placeElement(new Position(line, column), MapElement.FLOOR);
 			}
-			this.placeElement(new Position(line, 0), MapElement.WALL);
-			this.placeElement(new Position(line, 4), MapElement.WALL);
+			this.placeElement(new Position(line, WALL_FIRST_COLUMN), MapElement.WALL);
+			this.placeElement(new Position(line, WALL_LAST_COLUMN), MapElement.WALL);
 		}
 		this.placeElement(new Position(1, 1), MapElement.PLAYER);
 		this.placeElement(new Position(1, 2), MapElement.BOX);
 		this.placeElement(new Position(1, 3), MapElement.TARGET);
 		
 		// TODOD default starting position should be declared as a constant
-		this.startingPosition = new Position(1, 1);
+		this.startingPosition = STARTING_POSITION;
 	}
 
-	// TODO detail comment (why it may fail)
 	/**
-	 * Places a specified element at a given position
+	 * Places a specified element at a given position.
 	 * @param pos The position
 	 * @param elem The element
-	 * @return true if the element has been placed
-	 *         else false
+	 * @return <tt>true</tt> if the element has been placed.
+	 *         <tt>false</tt> if the element is out of bound of the map
 	 */
 	public boolean placeElement(Position pos, MapElement elem){
 		if(!isValidPosition(pos))
@@ -86,14 +116,29 @@ public class Level {
 		if(!isValidPosition(startPos) || !isValidPosition(finalPos))
 			return false;
 		
-		
+		/*
+		 * If element to move is a TARGET,
+		 * it places the element to the final position by
+		 * PLAYER_ON_TARGET or BOX_ON_TARGET.
+		 */
 		if(this.getMapElement(finalPos) == MapElement.TARGET){
 			if(this.getMapElement(startPos) == MapElement.PLAYER)
 				this.placeElement(finalPos, MapElement.PLAYER_ON_TARGET);
 			else
 				this.placeElement(finalPos, MapElement.BOX_ON_TARGET);
 		}
+		
+		/*
+		 * If the starting element is a PLAYER_ON_TARGET
+		 * it places on the final position the PLAYER and it update
+		 * the starting element with TARGET
+		 */
+		// TODO CHECK IF PLAYER IS PUSHING BOX
 		else if (this.getMapElement(startPos) == MapElement.PLAYER_ON_TARGET) {
+			if(this.getMapElement(finalPos) == MapElement.FLOOR){
+				this.placeElement(finalPos, MapElement.PLAYER);
+			}
+			this.placeElement(startPos, MapElement.TARGET);
 		}
 		
 		else{
@@ -101,7 +146,6 @@ public class Level {
 		}
 		
 		//TODO remove starting elem
-		
 		return true;
 	}
 
@@ -116,8 +160,6 @@ public class Level {
 			return null;
 		return this.map[pos.getPosX()][pos.getPosY()];
 	}
-	
-	//public boolean 
 
 	/**
 	 * Checks if the position is valid
@@ -129,7 +171,7 @@ public class Level {
 				|| (pos.getPosY() < 0 || pos.getPosY() > this.map.length)
 				|| pos == null)
 			return false;
-		// TODO Check the collisions with walls
+		// TODO Check the collisions with walls ?
 		return true;
 	}
 
