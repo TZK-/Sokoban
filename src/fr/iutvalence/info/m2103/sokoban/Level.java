@@ -10,27 +10,27 @@ package fr.iutvalence.info.m2103.sokoban;
 public class Level {
 	
 	/**
-	 * 
+	 * The default level number
 	 */
 	private static final int DEFAULT_LEVEL_NUMBER = 1;
 	
 	/**
-	 * 
+	 * The first line grid of walls
 	 */
 	private static final int WALL_FIRST_LINE = 0;
 
 	/**
-	 * 
+	 * The last line grid of walls
 	 */
 	private static final int WALL_LAST_LINE = 4;
 	
 	/**
-	 * 
+	 * The first column grid of walls
 	 */
 	private static final int WALL_FIRST_COLUMN = 0;
 	
 	/**
-	 * 
+	 * The last column grid of walls
 	 */
 	private static final int WALL_LAST_COLUMN = 4;
 	
