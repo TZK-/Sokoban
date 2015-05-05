@@ -1,5 +1,6 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+
 /**
  * Manages game of Sokoban. 
  * @author Thibault - Mathie
@@ -12,22 +13,39 @@ public class Sokoban {
 	 * The game level
 	 */
 	private Level level;
+	
+	private Position characterPosition;
 
 	/**
 	 * Create a new Sokoban, using default level
 	 *  
 	 */
-	public Sokoban(){
+	public Sokoban(Level level){
 		this.level = new Level();
 	}
 
+	
+	
 	/**
 	 * Run the game
 	 */
 	public void play() {
-		System.out.println(this.level);
-		this.level.placeElement(new Position(2,2), MapElement.WALL);
-		System.out.println(this.level);
+		
+		while (true)
+		{
+			// if won, exit telling it is won
+			// if lost, exit telling it is won
+			
+			// (else)
+			
+			// display map
+			System.out.println(this.level);
+		
+			// ask player for move
+			
+			// process move
+			
+		}
 	}
 
 }

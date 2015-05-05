@@ -57,6 +57,15 @@ public class Position {
 	}
 	
 	/**
+	 * Adds a position with an other position 
+	 * @param pos the position to add
+	 * @return a new position resulting from the addition of two positions.
+	 */
+	public Position addPositions(Position pos){
+		return new Position(this.posX + pos.posX, this.posY + pos.posY);
+	}
+	
+	/**
 	 * Returns position as a string format
 	 */
 	@Override

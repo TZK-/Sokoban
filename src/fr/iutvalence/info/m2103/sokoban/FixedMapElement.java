@@ -5,7 +5,7 @@ package fr.iutvalence.info.m2103.sokoban;
  * @author Thibault - Mathie
  *
  */
-public enum MapElement {
+public enum FixedMapElement {
 	
 	/**
 	 * Wall
@@ -20,45 +20,25 @@ public enum MapElement {
 	/**
 	 * Target where the box should be placed 
 	 */
-	TARGET("."),
+	TARGET(".");
 	
-	/**
-	 * Player
-	 */
-	PLAYER("@"),
-	
-	/**
-	 * Player on target
-	 */
-	PLAYER_ON_TARGET("+"),
-	
-	/**
-	 * Box
-	 */
-	BOX("$"),
-	
-	/**
-	 * Box on target
-	 */
-	BOX_ON_TARGET("*");
-	
-	
+
 	/**
 	 * The string representation of the Element
 	 */
-	private String name;
+	private String asciiString;
 
 	/**
 	 * Creates a new Element with a string representation
-	 * @param name The string representation
+	 * @param asciiString The string representation
 	 */
-	MapElement(String name){
-		this.name = name;
+	FixedMapElement(String asciiString){
+		this.asciiString = asciiString;
 	}
 
 	@Override
 	public String toString(){
-		return this.name;
+		return this.asciiString;
 	}
 	
 }
