@@ -95,15 +95,15 @@ public class Level {
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
 				if(line == WALL_FIRST_LINE || line == WALL_LAST_LINE)
-					this.placeElement(new Position(line, column), FixedMapElement.WALL);
+					this.placeFixedElement(new Position(line, column), FixedMapElement.WALL);
 				else
-					this.placeElement(new Position(line, column), FixedMapElement.FLOOR);
+					this.placeFixedElement(new Position(line, column), FixedMapElement.FLOOR);
 			}
-			this.placeElement(new Position(line, WALL_FIRST_COLUMN), FixedMapElement.WALL);
-			this.placeElement(new Position(line, WALL_LAST_COLUMN), FixedMapElement.WALL);
+			this.placeFixedElement(new Position(line, WALL_FIRST_COLUMN), FixedMapElement.WALL);
+			this.placeFixedElement(new Position(line, WALL_LAST_COLUMN), FixedMapElement.WALL);
 		}
 
-		this.placeElement(new Position(1, 3), FixedMapElement.TARGET);
+		this.placeFixedElement(new Position(1, 3), FixedMapElement.TARGET);
 		
 		// Place the box
 		this.boxPositions[0] = new Position(1, 2);
@@ -118,7 +118,7 @@ public class Level {
 	 * @return <tt>true</tt> if the element has been placed.
 	 *         <tt>false</tt> if the element is out of bound of the map
 	 */
-	public boolean placeElement(Position pos, FixedMapElement elem){
+	public boolean placeFixedElement(Position pos, FixedMapElement elem){
 		if(!isValidPosition(pos))
 			return false;
 		this.fixedElements[pos.getPosX()][pos.getPosY()] = elem;
@@ -139,7 +139,6 @@ public class Level {
 			}
 		}
 	}
-
 	
 	/**
 	 * Returns the boxes positions
@@ -155,7 +154,7 @@ public class Level {
 	 * @return true if the map element if the position is valid
 	 *         else return null
 	 */
-	public FixedMapElement getMapElement(Position pos){
+	public FixedMapElement getFixedMapElement(Position pos){
 		if(!isValidPosition(pos))
 			return null;
 		return this.fixedElements[pos.getPosX()][pos.getPosY()];
@@ -195,7 +194,7 @@ public class Level {
 				Position pos = new Position(line, column);
 				for (Position boxPosition : boxPositions) {
 					if(boxPosition.equals(pos)){
-						if(this.getMapElement(pos) == FixedMapElement.TARGET)
+						if(this.getFixedMapElement(pos) == FixedMapElement.TARGET)
 							str += BOX_REPRESENTATION_ON_TARGET;
 						else
 							str += BOX_REPRESENTATION;
