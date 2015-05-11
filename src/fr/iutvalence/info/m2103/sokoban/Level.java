@@ -88,7 +88,7 @@ public class Level {
 	 */
 	public Level(){
 		this.levelNumber = DEFAULT_LEVEL_NUMBER;
-		this.boxPositions = new Position[1];
+		this.boxPositions = new Position[2];
 		
 		this.fixedElements = new FixedMapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
@@ -104,9 +104,9 @@ public class Level {
 		}
 
 		this.placeFixedElement(new Position(1, 3), FixedMapElement.TARGET);
-		
-		// Place the box
-		this.boxPositions[0] = new Position(1, 2);
+
+		this.boxPositions[0] = new Position(2, 2);
+		this.boxPositions[1] = new Position(1, 2);
 		
 		this.startingPosition = STARTING_POSITION;
 	}
@@ -192,7 +192,7 @@ public class Level {
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
 				Position pos = new Position(line, column);
-				for (Position boxPosition : boxPositions) {
+				for (Position boxPosition : this.boxPositions) {
 					if(boxPosition.equals(pos)){
 						if(this.getFixedMapElement(pos) == FixedMapElement.TARGET)
 							str += BOX_REPRESENTATION_ON_TARGET;
@@ -200,7 +200,6 @@ public class Level {
 							str += BOX_REPRESENTATION;
 						boxHasBeenPlaced = true;
 					}
-					break;
 				}
 				if(boxHasBeenPlaced){
 					boxHasBeenPlaced = false;
