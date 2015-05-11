@@ -22,6 +22,7 @@ public class Sokoban {
 	 */
 	public Sokoban(Level level){
 		this.level = new Level();
+		this.canMoveTo(this.level.getStartingPosition());
 	}
 
 	/**
@@ -75,6 +76,7 @@ public class Sokoban {
 		}
 
 		Position finalPos = pos.addPositions(box);
+		
 		if(!this.canMoveTo(finalPos))
 			return false;
 
@@ -85,30 +87,34 @@ public class Sokoban {
 	}
 
 	/**
-	 * @param pos
-	 * @return <tt>true</tt> if //TODO complete
+	 * Checks if the PLAYER or a BOX can move to a given position.
+	 * @param pos The position check the move
+	 * @return <tt>true</tt> if the movable element can move to the given position,
+	 *         <tt>false</tt> if the movable element is blocked by WALL or BOX
 	 */
 	private boolean canMoveTo(Position pos) {
-		if(this.level.getFixedMapElement(pos) != FixedMapElement.FLOOR
-				|| this.level.getFixedMapElement(pos) == FixedMapElement.WALL
-				|| !this.isTargetAt(pos))
+		if(this.isThisElementAt(FixedMapElement.WALL, pos))
 			return false;
-
+		
 		for (Position boxPos : this.level.getBoxPositions()) {
 			if(boxPos.equals(pos))
 				return false;
 		}
 		return true;
+		
+		// CAN MOVE IF NO WALL OR BOX AT THE POS
 	}
 
 
 	/**
-	 * Checks if there is a box on a target at a given position
+	 * Checks if an element is at the given position
+	 * @param elem The element to test
 	 * @param pos The position to test
-	 * @return 
+	 * @return <tt>true</tt> if there is the element at the given position,
+	 *         <tt>false</tt> if not.
 	 */
-	private boolean isTargetAt(Position pos){
-		return (this.level.getFixedMapElement(pos) == FixedMapElement.TARGET);
+	private boolean isThisElementAt(FixedMapElement elem, Position pos){
+		return (this.level.getFixedMapElement(pos) == elem);
 	}
 
 
@@ -127,11 +133,8 @@ public class Sokoban {
 
 			// display map
 			System.out.println(this.level);
-			this.moveBox(new Position(1, 2), Direction.RIGHT);
-			System.out.println(this.level);
-
-
-
+			this.moveBox(new Position(1,2), Direction.DOWN);
+			
 			break;
 
 		}
