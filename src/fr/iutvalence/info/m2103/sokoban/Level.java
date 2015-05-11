@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import java.util.Iterator;
+
 
 // TODO detail comment
 /**
@@ -45,6 +47,16 @@ public class Level {
 	public static final int DEFAULT_MAP_SIZE = 5;
 
 	/**
+	 * The string representation of box which is not placed on a target
+	 */
+	private static final char BOX_REPRESENTATION = '$';
+
+	/**
+	 * 
+	 */
+	private static final char BOX_REPRESENTATION_ON_TARGET = '*';
+
+	/**
 	 * The starting position of the player
 	 */
 	private Position startingPosition;
@@ -66,16 +78,17 @@ public class Level {
 	private int levelNumber;
 
 	/**
-	 * Creates a new default level without movable elements.
+	 * Creates a new default level without the character.
 	 * At the end, it looks like this:</br>
 	 *  #####
-	 *  #  .#
+	 *  # $.#
 	 *  #   #
 	 *  #   #
 	 *  #####
 	 */
 	public Level(){
 		this.levelNumber = DEFAULT_LEVEL_NUMBER;
+		this.boxPositions = new Position[1];
 		
 		this.fixedElements = new FixedMapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
@@ -91,6 +104,9 @@ public class Level {
 		}
 
 		this.placeElement(new Position(1, 3), FixedMapElement.TARGET);
+		
+		// Place the box
+		this.boxPositions[0] = new Position(1, 2);
 		
 		this.startingPosition = STARTING_POSITION;
 	}
@@ -110,7 +126,7 @@ public class Level {
 	}
 	
 	/**
-	 * Moves a movable map element (CHARACTER, BOX)
+	 * Moves a box to a given position
 	 *  from a given valid position to an other valid position.
 	 * @param startPos The starting position
 	 * @param finalPos The final position
@@ -122,6 +138,15 @@ public class Level {
 				return;
 			}
 		}
+	}
+
+	
+	/**
+	 * Returns the boxes positions
+	 * @return The boxes positions
+	 */
+	public Position[] getBoxPositions() {
+		return this.boxPositions;
 	}
 
 	/**
@@ -164,9 +189,26 @@ public class Level {
 	@Override
 	public String toString() {
 		String str = "";
+		boolean boxHasBeenPlaced = false;
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
+				Position pos = new Position(line, column);
+				for (Position boxPosition : boxPositions) {
+					if(boxPosition.equals(pos)){
+						if(this.getMapElement(pos) == FixedMapElement.TARGET)
+							str += BOX_REPRESENTATION_ON_TARGET;
+						else
+							str += BOX_REPRESENTATION;
+						boxHasBeenPlaced = true;
+					}
+					break;
+				}
+				if(boxHasBeenPlaced){
+					boxHasBeenPlaced = false;
+					continue;
+				}
 				str += this.fixedElements[line][column];
+				
 			}
 			str += "\n";
 		}
