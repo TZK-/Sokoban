@@ -52,14 +52,19 @@ public class Level {
 	private static final char BOX_REPRESENTATION = '$';
 
 	/**
-	 * 
+	 * The string representation of box which is placed on a target
 	 */
 	private static final char BOX_REPRESENTATION_ON_TARGET = '*';
-
+	
 	/**
-	 * The starting position of the player
+	 * The string representation of character who is not placed on a target
 	 */
-	private Position startingPosition;
+	private static final char CHARACTER_REPRESENTATION = '@';
+	
+	/**
+	 * The string representation of the character who is placed on a target
+	 */
+	private static final char CHARACTER_REPRESENTATION_ON_TARGET = '+';
 	
 	/**
 	 * 2D grid of fixedElements
@@ -72,6 +77,12 @@ public class Level {
 	 */
 	private Position[] boxPositions;
 
+	/**
+	 * The position of the character
+	 */
+	private Position characterPosition;
+
+	
 	/**
 	 * Level number
 	 */
@@ -89,7 +100,7 @@ public class Level {
 	public Level(){
 		this.levelNumber = DEFAULT_LEVEL_NUMBER;
 		this.boxPositions = new Position[1];
-		
+		this.characterPosition = STARTING_POSITION;
 		this.fixedElements = new FixedMapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
@@ -106,8 +117,6 @@ public class Level {
 		this.placeFixedElement(new Position(1, 3), FixedMapElement.TARGET);
 
 		this.boxPositions[0] = new Position(1, 2);
-		
-		this.startingPosition = STARTING_POSITION;
 	}
 
 	/**
@@ -148,6 +157,22 @@ public class Level {
 	}
 
 	/**
+	 * Returns the character's position
+	 * @return the character's position
+	 */
+	public Position getCharacterPosition() {
+		return this.characterPosition;
+	}
+
+	/**
+	 * Moves the character to a given position
+	 * @param pos The position to move
+	 */
+	public void moveCharacter(Position pos) {
+		this.characterPosition = pos;
+	}
+	
+	/**
 	 * Returns the map element at the given position
 	 * @param pos The given position
 	 * @return true if the map element if the position is valid
@@ -174,14 +199,6 @@ public class Level {
 	}
 
 	/**
-	 * Returns the starting position where the player will begin
-	 * @return The starting position
-	 */
-	public Position getStartingPosition() {
-		return this.startingPosition;
-	}
-
-	/**
 	 * Returns an ASCII representation of the map
 	 */
 	@Override
@@ -191,6 +208,13 @@ public class Level {
 		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
 			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
 				Position pos = new Position(line, column);
+				if(pos.equals(this.characterPosition)){
+					if(this.getFixedMapElement(pos) == FixedMapElement.TARGET)
+						str += CHARACTER_REPRESENTATION_ON_TARGET;
+					else
+						str += CHARACTER_REPRESENTATION;
+					continue;
+				}
 				for (Position boxPosition : this.boxPositions) {
 					if(boxPosition.equals(pos)){
 						if(this.getFixedMapElement(pos) == FixedMapElement.TARGET)
