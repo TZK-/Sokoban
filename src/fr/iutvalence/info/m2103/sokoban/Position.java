@@ -57,12 +57,21 @@ public class Position {
 	}
 	
 	/**
-	 * Adds a position with an other position 
+	 * Adds the current position with an other position 
 	 * @param pos the position to add
 	 * @return a new position resulting from the addition of two positions.
 	 */
-	public Position addPositions(Position pos){
+	public Position addTo(Position pos){
 		return new Position(this.posX + pos.posX, this.posY + pos.posY);
+	}
+	
+	/**
+	 * Returns the position matches with the direction
+	 * @param dir The direction
+	 * @return the position matches with the direction
+	 */
+	public Position nextPosition(Direction dir){
+		return this.addTo(dir.getDeltaPosition()); 
 	}
 	
 	/**
