@@ -82,9 +82,10 @@ public class Sokoban {
 	}
 
 	/**
-	 * 
-	 * @param dir
-	 * @return
+	 * Moves the character to a given direction
+	 * @param dir The direction to move
+	 * @return <tt>true</tt> if the character has been moved,
+	 *         <tt>false</tt> if not.
 	 */
 	private boolean moveCharacter(Direction dir){
 		
