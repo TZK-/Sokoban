@@ -88,7 +88,7 @@ public class Level {
 	 */
 	public Level(){
 		this.levelNumber = DEFAULT_LEVEL_NUMBER;
-		this.boxPositions = new Position[2];
+		this.boxPositions = new Position[1];
 		
 		this.fixedElements = new FixedMapElement[DEFAULT_MAP_SIZE][DEFAULT_MAP_SIZE];
 
@@ -105,8 +105,7 @@ public class Level {
 
 		this.placeFixedElement(new Position(1, 3), FixedMapElement.TARGET);
 
-		this.boxPositions[0] = new Position(2, 2);
-		this.boxPositions[1] = new Position(1, 2);
+		this.boxPositions[0] = new Position(1, 2);
 		
 		this.startingPosition = STARTING_POSITION;
 	}

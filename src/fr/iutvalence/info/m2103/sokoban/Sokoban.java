@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import java.util.Random;
+
 
 /**
  * Manages game of Sokoban. 
@@ -22,7 +24,7 @@ public class Sokoban {
 	 */
 	public Sokoban(Level level){
 		this.level = new Level();
-		this.canMoveTo(this.level.getStartingPosition());
+		this.canMoveTheBoxTo(this.level.getStartingPosition());
 	}
 
 	/**
@@ -48,51 +50,30 @@ public class Sokoban {
 
 	/**
 	 * Moves a box from a given position to a given direction.
-	 * @param box
-	 * @param dir
+	 * @param boxPosition The position of the box to moved
+	 * @param dir The direction to moved
 	 * @return <tt>true</tt> if the box has been moved, 
 	 *          <tt>false</tt> if the box could not be moved because 
-	 *          there is no FLOOR or TARGET at the given position
+	 *          there is a blocking WALL or BOX.
 	 */
-	private boolean moveBox(Position box, Direction dir){
+	private boolean moveBox(Position boxPosition, Direction dir){
 
-		Position pos = null;
-
-		switch (dir) {
-			case UP:
-				pos = new Position(-1, 0);
-				break;
-			case DOWN:
-				pos = new Position(1, 0);
-				break;
-			case LEFT:
-				pos = new Position(0, -1);
-				break;
-			case RIGHT:
-				pos = new Position(0, 1);
-				break;
-			default:
-				break;
-		}
-
-		Position finalPos = pos.addPositions(box);
-		
-		if(!this.canMoveTo(finalPos))
+		Position finalPos = boxPosition.nextPosition(dir);
+		if(!this.canMoveTheBoxTo(finalPos))
 			return false;
 
-		this.level.moveBox(box, finalPos);
+		this.level.moveBox(boxPosition, finalPos);
 
 		return true;
-
 	}
 
 	/**
-	 * Checks if the PLAYER or a BOX can move to a given position.
+	 * Checks if the BOX can move to a given position.
 	 * @param pos The position check the move
 	 * @return <tt>true</tt> if the movable element can move to the given position,
 	 *         <tt>false</tt> if the movable element is blocked by WALL or BOX
 	 */
-	private boolean canMoveTo(Position pos) {
+	private boolean canMoveTheBoxTo(Position pos) {
 		if(this.isThisElementAt(FixedMapElement.WALL, pos))
 			return false;
 		
@@ -101,8 +82,6 @@ public class Sokoban {
 				return false;
 		}
 		return true;
-		
-		// CAN MOVE IF NO WALL OR BOX AT THE POS
 	}
 
 
@@ -122,21 +101,38 @@ public class Sokoban {
 	 * Run the game
 	 */
 	public void play() {
-
+		Random randomDir = new Random();
 		while (true)
 		{
-
+			
 			if(this.isGameFinished()){
 				System.out.println("Gagné !");
-				System.exit(0);	
+				System.out.println(this.level);
+				System.exit(0);
 			}
-
-			// display map
-			System.out.println(this.level);
-			this.moveBox(new Position(1,2), Direction.DOWN);
 			
-			break;
-
+			System.out.println(this.level);
+			Direction dir = null;
+			switch (randomDir.nextInt(4)) {
+			case 0:
+				dir = Direction.UP;
+				break;
+			case 1:
+				dir = Direction.RIGHT;
+				break;
+			case 2:
+				dir = Direction.DOWN;
+				break;
+			case 3:
+				dir = Direction.LEFT;
+				break;
+			default:
+				break;
+			}
+			
+			System.out.println(dir.name());
+			this.moveBox(this.level.getBoxPositions()[0], dir);
+			
 		}
 	}
 
