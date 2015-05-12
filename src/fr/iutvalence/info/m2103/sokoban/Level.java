@@ -89,10 +89,10 @@ public class Level {
 	private int levelNumber;
 
 	/**
-	 * Creates a new default level without the character.
+	 * Creates a new default level and place the character to his starting position.
 	 * At the end, it looks like this:</br>
 	 *  #####
-	 *  # $.#
+	 *  #@$.#
 	 *  #   #
 	 *  #   #
 	 *  #####
