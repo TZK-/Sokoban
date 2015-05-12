@@ -16,15 +16,12 @@ public class Sokoban {
 	 */
 	private Level level;
 
-	private Position characterPosition;
-
 	/**
 	 * Create a new Sokoban, using default level
 	 *  
 	 */
-	public Sokoban(Level level){
+	public Sokoban(){
 		this.level = new Level();
-		this.canMoveTheBoxTo(this.level.getStartingPosition());
 	}
 
 	/**
@@ -84,6 +81,29 @@ public class Sokoban {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param dir
+	 * @return
+	 */
+	private boolean moveCharacter(Direction dir){
+		
+		Position finalCharacterPos = this.level.getCharacterPosition().nextPosition(dir);
+		
+		for (Position boxPos : this.level.getBoxPositions()) {
+			// There is a box at the next position of the character
+			if(boxPos.equals(finalCharacterPos)){
+				if(!this.moveBox(boxPos, dir))
+					return false;
+			}
+			else{
+				if(this.isThisElementAt(FixedMapElement.WALL, finalCharacterPos))
+					return false;
+			}
+		}
+		this.level.moveCharacter(finalCharacterPos);
+		return true;
+	}
 
 	/**
 	 * Checks if an element is at the given position
@@ -112,7 +132,11 @@ public class Sokoban {
 			}
 			
 			System.out.println(this.level);
-			Direction dir = null;
+			this.moveCharacter(Direction.RIGHT);
+			System.out.println(this.level);
+			
+			break;
+			/*Direction dir = null;
 			switch (randomDir.nextInt(4)) {
 			case 0:
 				dir = Direction.UP;
@@ -131,7 +155,8 @@ public class Sokoban {
 			}
 			
 			System.out.println(dir.name());
-			this.moveBox(this.level.getBoxPositions()[0], dir);
+			this.moveBox(this.level.getBoxPositions()[0], dir);*/
+			
 			
 		}
 	}
