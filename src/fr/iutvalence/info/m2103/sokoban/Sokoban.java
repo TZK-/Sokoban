@@ -1,7 +1,5 @@
 package fr.iutvalence.info.m2103.sokoban;
 
-import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Manages game of Sokoban. 
