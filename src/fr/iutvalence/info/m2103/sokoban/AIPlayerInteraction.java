@@ -7,7 +7,6 @@ public class AIPlayerInteraction implements PlayerInteraction{
 
 	@Override
 	public Direction askDirectionToMove() {
-		
 		return Direction.getRandomDirection();
 	}
 

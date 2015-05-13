@@ -73,7 +73,7 @@ public enum Direction {
 
 	public static Direction getRandomDirection() {
 		Random randomDir = new Random();
-		
-		return null;
+
+		return Direction.values()[randomDir.nextInt(4)];
 	}
 }
