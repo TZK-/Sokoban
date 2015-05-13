@@ -1,6 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
 import java.util.Random;
+import java.util.Scanner;
 
 // TODO ADD 2 BOXES AND TEST DISPLACMENT
 
@@ -118,6 +119,8 @@ public class Sokoban {
 	 */
 	public void play() {
 		Random randomDir = new Random();
+		System.out.println(this.level);
+		
 		while (true)
 		{
 			
@@ -127,15 +130,12 @@ public class Sokoban {
 				System.exit(0);
 			}
 			
-			this.moveCharacter(Direction.RIGHT);
-			this.moveCharacter(Direction.DOWN);
-			this.moveCharacter(Direction.LEFT);
-			this.moveCharacter(Direction.DOWN);
-			this.moveCharacter(Direction.RIGHT);
-			System.out.println(this.level);
-
-			/*Direction dir = null;
-			switch (randomDir.nextInt(4)) {
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Choice (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  ): ");
+			int choixDirection = sc.nextInt();
+			
+			Direction dir = null;
+			switch (choixDirection) {
 			case 0:
 				dir = Direction.UP;
 				break;
@@ -148,14 +148,18 @@ public class Sokoban {
 			case 3:
 				dir = Direction.LEFT;
 				break;
+			case 9:
+				System.out.println("The game has been quit");
+				System.exit(0);
+				break;
 			default:
+				System.out.println("Invalid choice. (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  )");
 				break;
 			}
+			if(dir != null)
+				this.moveCharacter(dir);
 			
-			System.out.println(dir.name());
-			this.moveBox(this.level.getBoxPositions()[0], dir);*/
-			
-			
+			System.out.println(this.level);
 		}
 	}
 
