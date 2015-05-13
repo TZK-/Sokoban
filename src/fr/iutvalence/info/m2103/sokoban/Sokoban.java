@@ -3,14 +3,21 @@ package fr.iutvalence.info.m2103.sokoban;
 import java.util.Random;
 import java.util.Scanner;
 
-// TODO ADD 2 BOXES AND TEST DISPLACMENT
-
 /**
  * Manages game of Sokoban. 
  * @author Thibault - Mathie
  *
+ *
+ * The game is played on a board of squares, where each square is a floor or a wall. 
+ * Some floor squares contain boxes, and some floor squares are marked as storage locations (TARGET).
+ * The player is confined to the board, and may move horizontally or vertically onto empty squares 
+ * (never through walls or boxes). The player can also move into a box, 
+ * which pushes it into the square beyond. Boxes may not be pushed into other boxes or walls,
+ * and they cannot be pulled. 
+ * The puzzle is solved when all boxes are at storage locations.
+ * 
+ * @see http://en.wikipedia.org/wiki/Sokoban
  */
-// TODO Complete javadoc with Sokoban's rules + link
 public class Sokoban {
 
 	/**
@@ -79,9 +86,10 @@ public class Sokoban {
 	}
 
 	/**
-	 * 
-	 * @param dir
-	 * @return
+	 * Moves the character to a given direction.
+	 * @param dir The direction to move
+	 * @return <tt>true</tt> if the character can move to the given direction,
+	 *         <tt>false</tt> if the character is blocked by WALL or BOX
 	 */
 	private boolean moveCharacter(Direction dir){
 		
@@ -115,12 +123,13 @@ public class Sokoban {
 
 
 	/**
-	 * Run the game
+	 * Run the game.
+	 * Displays the board level and asks the player to move.
+	 * If the game is won, it exits the Sokoban game.
 	 */
 	public void play() {
-		Random randomDir = new Random();
 		System.out.println(this.level);
-		
+
 		while (true)
 		{
 			
@@ -130,34 +139,7 @@ public class Sokoban {
 				System.exit(0);
 			}
 			
-			Scanner sc = new Scanner(System.in);
-			System.out.print("Choice (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  ): ");
-			int choixDirection = sc.nextInt();
-			
-			Direction dir = null;
-			switch (choixDirection) {
-			case 0:
-				dir = Direction.UP;
-				break;
-			case 1:
-				dir = Direction.RIGHT;
-				break;
-			case 2:
-				dir = Direction.DOWN;
-				break;
-			case 3:
-				dir = Direction.LEFT;
-				break;
-			case 9:
-				System.out.println("The game has been quit");
-				System.exit(0);
-				break;
-			default:
-				System.out.println("Invalid choice. (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  )");
-				break;
-			}
-			if(dir != null)
-				this.moveCharacter(dir);
+			this.moveCharacter(new HumanPlayerInteraction().askDirectionToMove());
 			
 			System.out.println(this.level);
 		}

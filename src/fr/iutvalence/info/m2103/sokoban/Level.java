@@ -1,7 +1,5 @@
 package fr.iutvalence.info.m2103.sokoban;
 
-import java.util.Iterator;
-
 
 // TODO detail comment
 /**
@@ -86,16 +84,20 @@ public class Level {
 	/**
 	 * Level number
 	 */
+	@SuppressWarnings("unused")
 	private int levelNumber;
 
 	/**
-	 * Creates a new default level without the character.
-	 * At the end, it looks like this:</br>
-	 *  #####
-	 *  # $.#
-	 *  #   #
-	 *  #   #
-	 *  #####
+	 * Creates a new default level. 
+	 * It places the character(@), 2 boxes($) and 2 targets(.)
+	 * It will looks like this:</br>
+	 * <p>
+	 *  #####</br>
+	 *  #@$.#</br>
+	 *  # $ #</br>
+	 *  #  .#</br>
+	 *  #####</br>
+	 *  </p>
 	 */
 	public Level(){
 		this.levelNumber = DEFAULT_LEVEL_NUMBER;
@@ -189,14 +191,13 @@ public class Level {
 	/**
 	 * Checks if the position is valid
 	 * @param pos The position to check
-	 * @return <tt>true</tt> if the position is valid, <tt>else</tt> false
+	 * @return <tt>true</tt> if the position is valid, else it returns <tt>false</tt>
 	 */
 	private boolean isValidPosition(Position pos){
 		if((pos.getPosX() < 0 || pos.getPosX() > this.fixedElements.length)
 				|| (pos.getPosY() < 0 || pos.getPosY() > this.fixedElements.length)
 				|| pos == null)
 			return false;
-		// TODO Check the collisions with walls ?
 		return true;
 	}
 
