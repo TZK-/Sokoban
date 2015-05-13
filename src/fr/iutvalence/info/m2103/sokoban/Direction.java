@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import java.util.Random;
+
 /**
  *  Represents a direction according to the 4 poles.
  */
@@ -67,5 +69,11 @@ public enum Direction {
 	 */
 	public Position getDeltaPosition(){
 		return new Position(this.deltaX, this.deltaY);
+	}
+
+	public static Direction getRandomDirection() {
+		Random randomDir = new Random();
+		
+		return null;
 	}
 }
