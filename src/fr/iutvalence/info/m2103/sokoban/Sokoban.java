@@ -2,6 +2,7 @@ package fr.iutvalence.info.m2103.sokoban;
 
 import java.util.Random;
 
+// TODO ADD 2 BOXES AND TEST DISPLACMENT
 
 /**
  * Manages game of Sokoban. 
@@ -27,21 +28,16 @@ public class Sokoban {
 	/**
 	 * Checks if the game is finished.
 	 * A game is finished if all boxes are placed on targets
-	 * @return
+	 * @return <tt>true</tt> if the game is finished, i.e. all the boxes are on targets,
+	 *         <tt>false</tt> if not.
 	 */
 	public boolean isGameFinished(){
-		for (int line = 0; line < Level.DEFAULT_MAP_SIZE; line++) {
-			for (int column = 0; column < Level.DEFAULT_MAP_SIZE; column++) {
-				Position pos = new Position(line, column);
-				if(this.level.getFixedMapElement(pos) != FixedMapElement.TARGET)
-					continue;
-
-				for (Position boxPos : this.level.getBoxPositions()) {
-					if(!boxPos.equals(pos))
-						return false;
-				}
-			}
+		
+		for (Position boxPos : this.level.getBoxPositions()) {
+			if(!this.isThisElementAt(FixedMapElement.TARGET, boxPos))
+				return false;
 		}
+
 		return true;
 	}
 
@@ -131,11 +127,13 @@ public class Sokoban {
 				System.exit(0);
 			}
 			
-			System.out.println(this.level);
+			this.moveCharacter(Direction.RIGHT);
+			this.moveCharacter(Direction.DOWN);
+			this.moveCharacter(Direction.LEFT);
+			this.moveCharacter(Direction.DOWN);
 			this.moveCharacter(Direction.RIGHT);
 			System.out.println(this.level);
-			
-			break;
+
 			/*Direction dir = null;
 			switch (randomDir.nextInt(4)) {
 			case 0:
