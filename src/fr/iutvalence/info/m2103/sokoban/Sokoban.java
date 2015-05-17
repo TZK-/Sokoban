@@ -33,7 +33,7 @@ public class Sokoban {
 	public Sokoban(){
 		URL level = getClass().getResource("/levels/level3.txt");
 		try {
-			this.level = new MapLoader(level).load();
+			this.level = new MapLoader(level, 3).load();
 		} catch (PlayerNotPlacedException e) {
 			System.out.println("There is no character in the level !");
 			System.exit(1);

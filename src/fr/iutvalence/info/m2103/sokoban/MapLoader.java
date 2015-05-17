@@ -54,15 +54,22 @@ public class MapLoader{
 	private Position characterPosition;
 	
 	/**
+	 * The level number
+	 */
+	private int levelNumber;
+	
+	/**
 	 * Initializes the MapLoader.
 	 * @param path The path to the level file.
 	 */
-	public MapLoader(URL path) {
+	public MapLoader(URL path, int levelNumber) {
 		this.fixedElements = null;
 		this.boxPositions = new ArrayList<Position>();
 		this.characterPosition = null;
 		this.mapHeight = 0;
 		this.mapWidth = 0;
+		this.levelNumber = levelNumber;
+		
 		try {
 			this.levelFile = new File(path.toURI());
 		} catch (URISyntaxException e) {
@@ -128,7 +135,7 @@ public class MapLoader{
 			if(!isCharacterPlaced)
 				throw new PlayerNotPlacedException();
 			
-			return new Level(this.fixedElements, (Position[]) this.boxPositions.toArray(new Position[this.boxPositions.size()]), this.characterPosition, 1);
+			return new Level(this.fixedElements, (Position[]) this.boxPositions.toArray(new Position[this.boxPositions.size()]), this.characterPosition, this.levelNumber);
 			
 		} catch (FileNotFoundException e) {
 			return null;
