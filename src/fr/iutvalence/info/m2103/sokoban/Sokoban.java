@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
+
 import java.net.URL;
 
 
@@ -30,8 +32,12 @@ public class Sokoban {
 	 */
 	public Sokoban(){
 		URL level = getClass().getResource("/levels/level3.txt");
-		System.out.println(level);
-		this.level = new MapLoader(level).load();
+		try {
+			this.level = new MapLoader(level).load();
+		} catch (PlayerNotPlacedException e) {
+			System.out.println("There is no character in the level !");
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -137,8 +143,8 @@ public class Sokoban {
 		{
 			
 			if(this.isGameFinished()){
-				System.out.println("Gagné !");
 				System.out.println(this.level);
+				System.out.println("\nGagné !");
 				System.exit(0);
 			}
 			
