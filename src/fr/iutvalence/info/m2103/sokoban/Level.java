@@ -47,7 +47,7 @@ public class Level {
 	/**
 	 * The string representation of box which is not placed on a target
 	 */
-	private static final char BOX_REPRESENTATION = '$';
+	public static final char BOX_REPRESENTATION = '$';
 
 	/**
 	 * The string representation of box which is placed on a target
@@ -57,7 +57,7 @@ public class Level {
 	/**
 	 * The string representation of character who is not placed on a target
 	 */
-	private static final char CHARACTER_REPRESENTATION = '@';
+	public static final char CHARACTER_REPRESENTATION = '@';
 	
 	/**
 	 * The string representation of the character who is placed on a target
@@ -84,8 +84,7 @@ public class Level {
 	/**
 	 * Level number
 	 */
-	@SuppressWarnings("unused")
-	private int levelNumber;
+	private final int levelNumber;
 
 	/**
 	 * Creates a new default level. 
@@ -123,6 +122,21 @@ public class Level {
 		this.boxPositions[1] = new Position(2, 2);
 	}
 
+	
+	/**
+	 * Creates a new level with given datas
+	 * @param fixedElements The fixed map elements
+	 * @param boxPositions The position of the boxes
+	 * @param characterPosition The character's position
+	 * @param levelNumber The number of the level
+	 */
+	public Level(FixedMapElement[][] fixedElements, Position[] boxPositions, Position characterPosition, int levelNumber) {
+		this.fixedElements = fixedElements;
+		this.boxPositions = boxPositions;
+		this.characterPosition = characterPosition;
+		this.levelNumber = levelNumber;
+	}
+	
 	/**
 	 * Places a specified element at a given position.
 	 * @param pos The position
@@ -195,11 +209,19 @@ public class Level {
 	 */
 	private boolean isValidPosition(Position pos){
 		if((pos.getPosX() < 0 || pos.getPosX() > this.fixedElements.length)
-				|| (pos.getPosY() < 0 || pos.getPosY() > this.fixedElements.length)
+				|| (pos.getPosY() < 0 || pos.getPosY() > this.fixedElements[0].length)
 				|| pos == null)
 			return false;
 		return true;
 	}
+	
+	/**
+	 * @return The levelNumber
+	 */
+	public int getLevelNumber() {
+		return this.levelNumber;
+	}
+
 
 	/**
 	 * Returns an ASCII representation of the map
@@ -208,8 +230,8 @@ public class Level {
 	public String toString() {
 		String str = "";
 		boolean boxHasBeenPlaced = false;
-		for (int line = 0; line < DEFAULT_MAP_SIZE; line++) {
-			for (int column = 0; column < DEFAULT_MAP_SIZE; column++) {
+		for (int line = 0; line < this.fixedElements.length; line++) {
+			for (int column = 0; column < this.fixedElements[0].length; column++) {
 				Position pos = new Position(line, column);
 				if(pos.equals(this.characterPosition)){
 					if(this.getFixedMapElement(pos) == FixedMapElement.TARGET)
