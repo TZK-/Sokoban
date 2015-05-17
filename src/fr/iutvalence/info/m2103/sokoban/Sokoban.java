@@ -28,7 +28,7 @@ public class Sokoban {
 	 *  
 	 */
 	public Sokoban(){
-		this.level = new Level();
+		this.level = new MapLoader("F:\\level1.txt").load();
 	}
 
 	/**
@@ -126,6 +126,8 @@ public class Sokoban {
 	 * If the game is won, it exits the Sokoban game.
 	 */
 	public void play() {
+		System.out.println("Sokoban - Level " + this.level.getLevelNumber());
+		System.out.println("\t '@': Character - '$': BOX - '.': Target\n");
 		System.out.println(this.level);
 
 		while (true)
@@ -139,6 +141,7 @@ public class Sokoban {
 			
 			this.moveCharacter(new HumanPlayerInteraction().askDirectionToMove());
 			
+			System.out.println("------------------");
 			System.out.println(this.level);
 		}
 	}
