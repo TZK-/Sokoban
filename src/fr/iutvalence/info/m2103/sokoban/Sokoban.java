@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import java.net.URL;
+
 
 /**
  * Manages game of Sokoban. 
@@ -24,11 +26,12 @@ public class Sokoban {
 	private Level level;
 
 	/**
-	 * Create a new Sokoban, using default level
-	 *  
+	 * Create a new Sokoban
 	 */
 	public Sokoban(){
-		this.level = new MapLoader("F:\\level1.txt").load();
+		URL level = getClass().getResource("/levels/level3.txt");
+		System.out.println(level);
+		this.level = new MapLoader(level).load();
 	}
 
 	/**

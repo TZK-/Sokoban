@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,13 +55,17 @@ public class MapLoader{
 	 * Initializes the MapLoader.
 	 * @param path The path to the level file.
 	 */
-	public MapLoader(String path) {
+	public MapLoader(URL path) {
 		this.fixedElements = null;
 		this.boxPositions = new ArrayList<Position>();
 		this.characterPosition = null;
 		this.mapHeight = 0;
 		this.mapWidth = 0;
-		this.levelFile = new File(path);
+		try {
+			this.levelFile = new File(path.toURI());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -68,19 +74,15 @@ public class MapLoader{
 	public Level load(){
 		BufferedReader buffer = null;
 		try {
-			// On charge en mémoire le fichier du niveau
+			
 			buffer = new BufferedReader(new FileReader(this.levelFile));
 			
-			// Ligne courrante
 			String currentLine;
-			
-			// Contient l'ensemble des lignes
+
 			StringBuilder allLines = new StringBuilder();
 			
-			/* On parcours le fichier:
-			 *   - Récupère le nombre de lignes
-			 *   - Récupère le nombre max de caractères par lignes
-			 *   - Stocke le contunu du fichier dans une variable
+			/*
+			 * Gets the height and width of the level
 			 */
 			while((currentLine = buffer.readLine()) != null){
 				this.mapHeight++;
@@ -88,10 +90,9 @@ public class MapLoader{
 					this.mapWidth = currentLine.length();
 				allLines.append(currentLine);
 			}
-			
-			// On ferme le fichier
+
 			buffer.close();
-			// On initialise le tableau this.map
+			
 			this.fixedElements = new FixedMapElement[this.mapHeight][this.mapWidth];
 			
 			for (int line = 0; line < this.mapHeight; line++) {
@@ -127,6 +128,5 @@ public class MapLoader{
 			return null;
 		}
 	}
-
 	
 }
