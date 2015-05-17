@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import fr.uitvalence.info.m2103.interfaces.PlayerInteraction;
+
 /**
  * Manages the interactions with an artificial player.
  */
