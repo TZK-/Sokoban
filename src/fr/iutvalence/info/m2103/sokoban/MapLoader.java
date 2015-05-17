@@ -121,6 +121,15 @@ public class MapLoader{
 							this.fixedElements[pos.getPosX()][pos.getPosY()] = FixedMapElement.FLOOR;
 							isCharacterPlaced = true;
 							break;
+						case Level.BOX_REPRESENTATION_ON_TARGET:
+							this.boxPositions.add(pos);
+							this.fixedElements[pos.getPosX()][pos.getPosY()] = FixedMapElement.TARGET;
+							break;
+						case Level.CHARACTER_REPRESENTATION_ON_TARGET:
+							this.characterPosition = pos;
+							this.fixedElements[pos.getPosX()][pos.getPosY()] = FixedMapElement.TARGET;
+							isCharacterPlaced = true;
+							break;
 						default:
 							try{
 								this.fixedElements[pos.getPosX()][pos.getPosY()] = FixedMapElement.fromString(Character.toString(currentChar));
