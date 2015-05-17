@@ -1,4 +1,4 @@
-package fr.uitvalence.info.m2103.interfaces;
+package fr.iutvalence.info.m2103.interfaces;
 
 import fr.iutvalence.info.m2103.sokoban.Direction;
 

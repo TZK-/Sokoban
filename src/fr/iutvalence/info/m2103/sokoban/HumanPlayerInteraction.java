@@ -2,7 +2,7 @@ package fr.iutvalence.info.m2103.sokoban;
 
 import java.util.Scanner;
 
-import fr.uitvalence.info.m2103.interfaces.PlayerInteraction;
+import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 
 /**
  * Manages the interactions with a human player.
