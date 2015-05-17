@@ -52,7 +52,7 @@ public class Level {
 	/**
 	 * The string representation of box which is placed on a target
 	 */
-	private static final char BOX_REPRESENTATION_ON_TARGET = '*';
+	public static final char BOX_REPRESENTATION_ON_TARGET = '*';
 	
 	/**
 	 * The string representation of character who is not placed on a target
@@ -62,7 +62,7 @@ public class Level {
 	/**
 	 * The string representation of the character who is placed on a target
 	 */
-	private static final char CHARACTER_REPRESENTATION_ON_TARGET = '+';
+	public static final char CHARACTER_REPRESENTATION_ON_TARGET = '+';
 	
 	/**
 	 * 2D grid of fixedElements
