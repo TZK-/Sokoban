@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,8 +72,9 @@ public class MapLoader{
 	
 	/**
 	 * Charge un niveau à partir du fichier
+	 * @throws PlayerNotPlacedException 
 	 */
-	public Level load(){
+	public Level load() throws PlayerNotPlacedException{
 		BufferedReader buffer = null;
 		try {
 			
@@ -94,6 +97,7 @@ public class MapLoader{
 			buffer.close();
 			
 			this.fixedElements = new FixedMapElement[this.mapHeight][this.mapWidth];
+			boolean isCharacterPlaced = false;
 			
 			for (int line = 0; line < this.mapHeight; line++) {
 				for (int column = 0; column < this.mapWidth; column++) {
@@ -108,6 +112,7 @@ public class MapLoader{
 						case Level.CHARACTER_REPRESENTATION:
 							this.characterPosition = pos;
 							this.fixedElements[pos.getPosX()][pos.getPosY()] = FixedMapElement.FLOOR;
+							isCharacterPlaced = true;
 							break;
 						default:
 							try{
@@ -119,6 +124,9 @@ public class MapLoader{
 					}
 				}
 			}
+			
+			if(!isCharacterPlaced)
+				throw new PlayerNotPlacedException();
 			
 			return new Level(this.fixedElements, (Position[]) this.boxPositions.toArray(new Position[this.boxPositions.size()]), this.characterPosition, 1);
 			
