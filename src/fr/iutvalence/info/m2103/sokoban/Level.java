@@ -1,5 +1,9 @@
 package fr.iutvalence.info.m2103.sokoban;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 
 // TODO detail comment
 /**
@@ -8,6 +12,11 @@ package fr.iutvalence.info.m2103.sokoban;
  *
  */
 public class Level {
+	
+	/**
+	 * The folder containing all the levels file
+	 */
+	public static final String LEVELS_FOLDER = "/levels";
 	
 	/**
 	 * The default level number
@@ -222,6 +231,24 @@ public class Level {
 		return this.levelNumber;
 	}
 
+	
+	/**
+	 * Returns the name of the existing levels into the Levels folder.
+	 * @return The name of the existing levels into the Levels folder.
+	 */
+	public static String[] getLevels(){
+		
+		URL levelsUrl = MapLoader.class.getResource(Level.LEVELS_FOLDER);
+		File levels = null;
+		try {
+			levels = new File(levelsUrl.toURI());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		return levels.list();
+	}
+	
 
 	/**
 	 * Returns an ASCII representation of the map
