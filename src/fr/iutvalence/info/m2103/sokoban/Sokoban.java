@@ -1,8 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
 import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
-
-import java.net.URL;
+import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 
 
 /**
@@ -31,13 +30,7 @@ public class Sokoban {
 	 * Create a new Sokoban
 	 */
 	public Sokoban(){
-		URL level = getClass().getResource("/levels/level3.txt");
-		try {
-			this.level = new MapLoader(level, 3).load();
-		} catch (PlayerNotPlacedException e) {
-			System.out.println("There is no character in the level !");
-			System.exit(1);
-		}
+		this.level = null;
 	}
 
 	/**
@@ -135,8 +128,23 @@ public class Sokoban {
 	 * If the game is won, it exits the Sokoban game.
 	 */
 	public void play() {
-		System.out.println("Sokoban - Level " + this.level.getLevelNumber());
-		System.out.println("\t '@': Character - '$': BOX - '.': Target\n");
+		PlayerInteraction playerInteraction = new HumanPlayerInteraction();
+		
+		System.out.println("Sokoban Game");
+		System.out.println("-------------\n");
+		
+		int levelNumber = playerInteraction.askLevelToPlay();
+		
+		try {
+			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
+		} catch (PlayerNotPlacedException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Level " + this.level.getLevelNumber());
+		System.out.println("\t '@': CHARACTER     - '$': BOX");
+		System.out.println("\t '*': BOX on TARGET - '+': CHARACTER on TARGET");
+		System.out.println("\t '#': WALL          - '.': TARGET\n");
 		System.out.println(this.level);
 
 		while (true)
@@ -148,11 +156,18 @@ public class Sokoban {
 				System.exit(0);
 			}
 			
-			this.moveCharacter(new HumanPlayerInteraction().askDirectionToMove());
+			this.moveCharacter(playerInteraction.askDirectionToMove());
 			
 			System.out.println("------------------");
 			System.out.println(this.level);
 		}
 	}
 
+	/**
+	 * @param level The level to set
+	 */
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+	
 }
