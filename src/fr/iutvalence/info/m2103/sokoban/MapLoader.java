@@ -86,7 +86,7 @@ public class MapLoader{
 		try {
 			
 			buffer = new BufferedReader(new FileReader(this.levelFile));
-			
+			buffer.mark(512);
 			String currentLine;
 
 			StringBuilder allLines = new StringBuilder();
@@ -98,9 +98,17 @@ public class MapLoader{
 				this.mapHeight++;
 				if(this.mapWidth < currentLine.length())
 					this.mapWidth = currentLine.length();
-				allLines.append(currentLine);
 			}
 
+			buffer.reset();
+			
+			while((currentLine = buffer.readLine()) != null){
+				while(currentLine.length() % this.mapWidth != 0){
+					currentLine += " ";
+				}
+				allLines.append(currentLine);
+			}
+			
 			buffer.close();
 			
 			this.fixedElements = new FixedMapElement[this.mapHeight][this.mapWidth];
