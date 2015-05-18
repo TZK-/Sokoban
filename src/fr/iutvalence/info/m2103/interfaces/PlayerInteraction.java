@@ -13,4 +13,10 @@ public interface PlayerInteraction {
 	 */
 	public Direction askDirectionToMove();
 	
+	/**
+	 * Asks to the player a level to play
+	 * @return The selected level number
+	 */
+	public int askLevelToPlay();
+	
 }
