@@ -134,32 +134,34 @@ public class Sokoban {
 		System.out.println("-------------\n");
 		
 		int levelNumber = playerInteraction.askLevelToPlay();
+		int turn = 0;
 		
-		try {
-			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
-		} catch (PlayerNotPlacedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
+//		} catch (PlayerNotPlacedException e) {
+//			e.printStackTrace();
+//		}
+	
+		this.setLevel(new Level());
 		
 		System.out.println("Level " + this.level.getLevelNumber());
 		System.out.println("\t '@': CHARACTER     - '$': BOX");
 		System.out.println("\t '*': BOX on TARGET - '+': CHARACTER on TARGET");
 		System.out.println("\t '#': WALL          - '.': TARGET\n");
-		System.out.println(this.level);
 
 		while (true)
 		{
 			
+			System.out.println("------------------");
+			System.out.println(this.level);
+			
 			if(this.isGameFinished()){
-				System.out.println(this.level);
-				System.out.println("\nGagné !");
+				System.out.println("\nWon in " + turn + " turns !");
 				System.exit(0);
 			}
 			
 			this.moveCharacter(playerInteraction.askDirectionToMove());
-			
-			System.out.println("------------------");
-			System.out.println(this.level);
+			turn++;
 		}
 	}
 
