@@ -5,11 +5,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 
-// TODO detail comment
 /**
- * Represents a level of Sokoban
- * @author Thibault - Mathie
- *
+ * Represents a level of Sokoban.
+ * It is composed with WALLS, TARGETS and a CHARACTER.
  */
 public class Level {
 	

@@ -7,8 +7,6 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 
 /**
  * Manages game of Sokoban. 
- * @author Thibault - Mathie
- *
  *
  * The game is played on a board of squares, where each square is a floor or a wall. 
  * Some floor squares contain boxes, and some floor squares are marked as storage locations (TARGET).

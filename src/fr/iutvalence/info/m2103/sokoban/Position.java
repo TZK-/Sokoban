@@ -2,8 +2,6 @@ package fr.iutvalence.info.m2103.sokoban;
 
 /**
  * Represents a position
- * @author Thibault - Mathie
- *
  */
 public class Position {
 	

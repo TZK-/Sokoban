@@ -16,8 +16,7 @@ import java.util.List;
 /**
  * This class is used to load levels from files.
  * Levels are specified by symbols.
- * @see http://sokobano.de/wiki/index.php?title=Level_format
- * @author Thibault
+ * @see "http://sokobano.de/wiki/index.php?title=Level_format"
  *
  */
 public class MapLoader{
