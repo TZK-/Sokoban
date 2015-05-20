@@ -1,6 +1,7 @@
 package fr.iutvalence.info.m2103.sokoban;
 
 import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
+import fr.iutvalence.info.m2103.interfaces.Display;
 import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 
 
@@ -17,7 +18,7 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
  * and they cannot be pulled. 
  * The puzzle is solved when all boxes are at storage locations.
  * 
- * @see http://en.wikipedia.org/wiki/Sokoban
+ * @see "http://en.wikipedia.org/wiki/Sokoban"
  */
 public class Sokoban {
 
@@ -27,10 +28,24 @@ public class Sokoban {
 	private Level level;
 
 	/**
-	 * Create a new Sokoban
+	 * The player
 	 */
-	public Sokoban(){
+	private PlayerInteraction player;
+	
+	/**
+	 * The display
+	 */
+	private Display display;
+	
+	/**
+	 * Create a new Sokoban
+	 * @param player The player
+	 * @param display The display
+	 */
+	public Sokoban(PlayerInteraction player, Display display){
 		this.level = null;
+		this.player = player;
+		this.display = display;
 	}
 
 	/**
@@ -128,39 +143,31 @@ public class Sokoban {
 	 * If the game is won, it exits the Sokoban game.
 	 */
 	public void play() {
-		PlayerInteraction playerInteraction = new HumanPlayerInteraction();
 		
-		System.out.println("Sokoban Game");
-		System.out.println("-------------\n");
+		this.display.displayStartingMessage();
 		
-		int levelNumber = playerInteraction.askLevelToPlay();
+		int levelNumber = this.player.askLevelToPlay();
 		int turn = 0;
 		
-//		try {
-//			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
-//		} catch (PlayerNotPlacedException e) {
-//			e.printStackTrace();
-//		}
-	
-		this.setLevel(new Level());
+		try {
+			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
+		} catch (PlayerNotPlacedException e) {
+			e.printStackTrace();
+		}
 		
-		System.out.println("Level " + this.level.getLevelNumber());
-		System.out.println("\t '@': CHARACTER     - '$': BOX");
-		System.out.println("\t '*': BOX on TARGET - '+': CHARACTER on TARGET");
-		System.out.println("\t '#': WALL          - '.': TARGET\n");
+		this.display.displayMessage("Level " + this.level.getLevelNumber());
 
 		while (true)
 		{
 			
-			System.out.println("------------------");
-			System.out.println(this.level);
+			this.display.displayMessage(this.level.toString());
 			
 			if(this.isGameFinished()){
-				System.out.println("\nWon in " + turn + " turns !");
-				System.exit(0);
+				this.display.displayWinMessage(turn);
+				this.player.askToQuit();
 			}
 			
-			this.moveCharacter(playerInteraction.askDirectionToMove());
+			this.moveCharacter(this.player.askAction());
 			turn++;
 		}
 	}
