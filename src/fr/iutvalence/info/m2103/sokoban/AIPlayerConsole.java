@@ -7,10 +7,10 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 /**
  * Manages the interactions with an artificial player.
  */
-public class AIPlayerInteraction implements PlayerInteraction{
+public class AIPlayerConsole implements PlayerInteraction{
 
 	@Override
-	public Direction askDirectionToMove() {
+	public Direction askAction() {
 		return Direction.getRandomDirection();
 	}
 
@@ -18,6 +18,11 @@ public class AIPlayerInteraction implements PlayerInteraction{
 	public int askLevelToPlay() {
 		Random rand = new Random();
 		return rand.nextInt(Level.getLevels().length);
+	}
+
+	@Override
+	public void askToQuit() {
+		System.exit(0);
 	}
 
 }

@@ -6,9 +6,8 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 
 /**
  * Manages the interactions with a human player.
- *
  */
-public class HumanPlayerInteraction implements PlayerInteraction{
+public class HumanPlayerConsole implements PlayerInteraction{
 
 	/**
 	 * Gets input from keyboard
@@ -16,19 +15,25 @@ public class HumanPlayerInteraction implements PlayerInteraction{
 	private Scanner sc;
 	
 	/**
+	 * The console display
+	 */
+	private DisplayConsole display;
+	
+	/**
 	 * Creates a new HumanPlayerInteraction
 	 */
-	public HumanPlayerInteraction() {
+	public HumanPlayerConsole() {
 		this.sc = new Scanner(System.in);
+		this.display = new DisplayConsole();
 	}
 
 	@Override
-	public Direction askDirectionToMove() {
+	public Direction askAction() {
 		Direction dir = null;
 		while(dir == null){
-			System.out.print("Choice (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  ): ");
+			this.display.displayMessage("Choice (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  ): ");
 			int choixDirection = this.sc.nextInt();
-			System.out.print("\n");
+		
 			switch (choixDirection) {
 				case 0:
 					dir = Direction.UP;
@@ -43,11 +48,11 @@ public class HumanPlayerInteraction implements PlayerInteraction{
 					dir = Direction.LEFT;
 					break;
 				case 9:
-					System.out.println("\tThe game has been quit");
-					System.exit(0);
+					this.display.displayMessage("\tThe game has been quit");
+					this.askToQuit();
 					break;
 				default:
-					System.out.println("\tInvalid choice\n");
+					this.display.displayMessage("\tInvalid choice\n");
 					break;
 			}
 		}
@@ -57,18 +62,23 @@ public class HumanPlayerInteraction implements PlayerInteraction{
 	@Override
 	public int askLevelToPlay() {
 		
-		System.out.println("Level list");
+		this.display.displayMessage("Level list");
 		for (int levelNumber = 0; levelNumber < Level.getLevels().length; levelNumber++) {
-			System.out.println("\t" + levelNumber + " - " + Level.getLevels()[levelNumber]);
+			this.display.displayMessage("\t" + levelNumber + " - " + Level.getLevels()[levelNumber]);
 		}
 		
 		int choice = -1;
 		do{
-			System.out.print("Choice: ");
+			this.display.displayMessage("Choice: ");
 			choice = this.sc.nextInt();
 		}while(choice < 0 || choice > Level.getLevels().length - 1);
-		System.out.println("\n-----------\n");
+		this.display.displayMessage("\n-----------\n");
 		return choice;
+	}
+
+	@Override
+	public void askToQuit() {
+		System.exit(0);
 	}
 
 }
