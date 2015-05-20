@@ -59,9 +59,10 @@ public class MapLoader{
 	
 	/**
 	 * Initializes the MapLoader.
-	 * @param path The path to the level file.
+	 * @param levelPath The level path
+	 * @param levelNumber The level number
 	 */
-	public MapLoader(String level, int levelNumber) {
+	public MapLoader(String levelPath, int levelNumber) {
 		this.fixedElements = null;
 		this.boxPositions = new ArrayList<Position>();
 		this.characterPosition = null;
@@ -69,7 +70,7 @@ public class MapLoader{
 		this.mapWidth = 0;
 		this.levelNumber = levelNumber;
 		
-		URL levelURL = this.getClass().getResource(Level.LEVELS_FOLDER + File.separator + level);
+		URL levelURL = this.getClass().getResource(Level.LEVELS_FOLDER + File.separator + levelPath);
 		
 		try {
 			this.levelFile = new File(levelURL.toURI());
@@ -79,8 +80,9 @@ public class MapLoader{
 	}
 	
 	/**
-	 * Charge un niveau à partir du fichier
-	 * @throws PlayerNotPlacedException 
+	 * Load the level from the file
+	 * @return A new Level object
+	 * @throws PlayerNotPlacedException if the player has not been placed on the map
 	 */
 	public Level load() throws PlayerNotPlacedException{
 		BufferedReader buffer = null;
