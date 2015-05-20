@@ -239,14 +239,14 @@ public class Level {
 	public static String[] getLevels(){
 		
 		URL levelsUrl = MapLoader.class.getResource(Level.LEVELS_FOLDER);
-		File levels = null;
+		File levelsPath = null;
 		try {
-			levels = new File(levelsUrl.toURI());
+			levelsPath = new File(levelsUrl.toURI());
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
 		
-		return levels.list();
+		return levelsPath.list();
 	}
 	
 
