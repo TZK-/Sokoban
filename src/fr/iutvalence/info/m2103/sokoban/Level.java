@@ -87,11 +87,20 @@ public class Level {
 	 */
 	private Position characterPosition;
 
-	
 	/**
 	 * Level number
 	 */
 	private final int levelNumber;
+	
+	/**
+	 * The map height
+	 */
+	private final int mapHeight;
+	
+	/**
+	 * The map width
+	 */
+	private final int mapWidth;
 
 	/**
 	 * Creates a new default level. 
@@ -127,6 +136,8 @@ public class Level {
 		
 		this.boxPositions[0] = new Position(1, 2);
 		this.boxPositions[1] = new Position(2, 2);
+		this.mapWidth = DEFAULT_MAP_SIZE;
+		this.mapHeight = DEFAULT_MAP_SIZE;
 	}
 
 	
@@ -142,6 +153,8 @@ public class Level {
 		this.boxPositions = boxPositions;
 		this.characterPosition = characterPosition;
 		this.levelNumber = levelNumber;
+		this.mapWidth = this.fixedElements[0].length;
+		this.mapHeight = this.fixedElements.length;
 	}
 	
 	/**
@@ -247,6 +260,22 @@ public class Level {
 		return levelsPath.list();
 	}
 	
+
+	/**
+	 * @return the mapHeight
+	 */
+	public int getMapHeight() {
+		return this.mapHeight;
+	}
+
+
+	/**
+	 * @return the mapWidth
+	 */
+	public int getMapWidth() {
+		return this.mapWidth;
+	}
+
 
 	/**
 	 * Returns an ASCII representation of the map
