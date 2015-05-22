@@ -1,7 +1,7 @@
 package fr.iutvalence.info.m2103.gui;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import fr.iutvalence.info.m2103.sokoban.Position;
 
@@ -9,7 +9,7 @@ import fr.iutvalence.info.m2103.sokoban.Position;
  * Represents a level map element (CHARACTER, BOX, TARGET...).
  * @see fr.iutvalence.info.m2103.sokoban.Level
  */
-public class LevelMapElement extends JButton{
+public class LevelMapElement extends JLabel{
 
 	/**
 	 * Serial Version UID

@@ -1,8 +1,12 @@
 package fr.iutvalence.info.m2103.gui;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
+
+import fr.iutvalence.info.m2103.sokoban.Sokoban;
 
 /**
  * 
@@ -27,15 +31,17 @@ public class MainWindow implements Runnable{
 	
 	private SokobanLevelGridPanel levelGridPanel;
 	
+	private Sokoban sokobanGame;
 	
 	/**
 	 * Creates the main window
 	 */
-	public MainWindow() {
+	public MainWindow(Sokoban sokobanGame) {
 		super();
+		this.sokobanGame = sokobanGame;
 		this.window = new JFrame();
 		this.verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		this.levelGridPanel = new SokobanLevelGridPanel();
+		this.levelGridPanel = new SokobanLevelGridPanel(this.sokobanGame.getLevel());
 	}
 
 	/**
@@ -43,7 +49,7 @@ public class MainWindow implements Runnable{
 	 */
 	public void initGui(){
 		this.window.setTitle(SOKOBAN_APP_NAME);
-		this.window.setSize(DEFAULT_SIZE_X, DEFAULT_SIZE_Y);
+		this.window.setSize(this.levelGridPanel.getPanelSize());
 		this.window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.verticalSplitPane.add(this.levelGridPanel);
