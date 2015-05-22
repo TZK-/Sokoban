@@ -1,7 +1,7 @@
 package fr.iutvalence.info.m2103.gui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -20,42 +20,54 @@ public class SokobanLevelGridPanel extends JPanel{
 	private static final long serialVersionUID = 4650266191907566738L;
 	
 	/**
-	 * A grid layout
+	 * The sprite map element dimension
 	 */
-	private GridLayout gridLayout;
+	private Dimension panelSize;
 	
 	/**
-	 * 
+	 * Creates a new level grid panel.
+	 * It generates a graphic display of the given level
+	 * @param level The current level
 	 */
 	public SokobanLevelGridPanel(Level level) {
 		super();
 		this.setLayout(new GridLayout(level.getMapHeight(), level.getMapWidth()));
-		for (int line = 0; line < this.gridLayout.getRows(); line++) {
-			for (int column = 0; column < this.gridLayout.getColumns(); column++) {
-				ImageIcon ico = null;
+		ImageIcon ico = null;
+		for (int line = 0; line < level.getMapHeight(); line++) {
+			for (int column = 0; column < level.getMapWidth(); column++) {
 				Position pos = new Position(line, column);
 				switch (level.getFixedMapElement(pos)) {
 				case FLOOR:
-					ico = new ImageIcon(this.getClass().getResource("ressources/floor.gif"));
+					ico = new ImageIcon(this.getClass().getResource("/ressources/floor.gif"));
 					break;
 				case WALL:
-					ico = new ImageIcon(this.getClass().getResource("ressources/wall.jpg"));
+					ico = new ImageIcon(this.getClass().getResource("/ressources/wall.jpg"));
 					break;
 				case TARGET:
-					ico = new ImageIcon(this.getClass().getResource("ressources/target.png"));
+					ico = new ImageIcon(this.getClass().getResource("/ressources/target.png"));
 					break;
 				default:
-					if(pos.equals(level.getCharacterPosition()))
-						ico = new ImageIcon(this.getClass().getResource("ressources/character.gif"));
-					else
-						ico = new ImageIcon(this.getClass().getResource("ressources/box.gif"));
 					break;
 				}
-				//TODO check box pos
-				this.add(new LevelMapElement(ico, new Position(line, column)));
+				
+				if(pos.equals(level.getCharacterPosition()))
+					ico = new ImageIcon(this.getClass().getResource("/ressources/character.gif"));
+				if(level.isBoxAt(pos))
+					ico = new ImageIcon(this.getClass().getResource("/ressources/box.jpg"));
+				
+				LevelMapElement levelElement = new LevelMapElement(ico, pos);
+				this.add(levelElement);
 			}
 		}
+		
+		this.panelSize = new Dimension(ico.getIconHeight() * level.getMapHeight(), ico.getIconWidth() * level.getMapWidth());
 	}
 
-	
+	/**
+	 * @return the panel size
+	 */
+	public Dimension getPanelSize() {
+		return this.panelSize;
+	}
+
 }
