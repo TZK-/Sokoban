@@ -41,9 +41,16 @@ public class Sokoban {
 	 * @param display The display
 	 */
 	public Sokoban(PlayerInteraction player, Display display){
-		this.level = null;
 		this.player = player;
 		this.display = display;
+		
+		int levelNumber = this.player.askLevelToPlay();
+		
+		try {
+			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
+		} catch (PlayerNotPlacedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -144,14 +151,8 @@ public class Sokoban {
 		
 		this.display.displayStartingMessage();
 		
-		int levelNumber = this.player.askLevelToPlay();
 		int turn = 0;
 		
-		try {
-			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
-		} catch (PlayerNotPlacedException e) {
-			e.printStackTrace();
-		}
 		
 		this.display.displayMessage("Level " + this.level.getLevelNumber());
 
@@ -175,6 +176,13 @@ public class Sokoban {
 	 */
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+
+	/**
+	 * @return the level
+	 */
+	public Level getLevel() {
+		return this.level;
 	}
 	
 }

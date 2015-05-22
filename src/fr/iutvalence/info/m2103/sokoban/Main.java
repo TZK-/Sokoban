@@ -16,7 +16,8 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		//new Sokoban(new HumanPlayerConsole(), new DisplayConsole()).play();
-		SwingUtilities.invokeLater(new MainWindow());
+		Sokoban sokoban = new Sokoban(new HumanPlayerConsole(), new DisplayConsole());
+		SwingUtilities.invokeLater(new MainWindow(sokoban));
 	}
 
 }

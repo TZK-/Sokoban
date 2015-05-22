@@ -172,6 +172,20 @@ public class Level {
 	}
 	
 	/**
+	 * Checks if there is a box at the given position
+	 * @param pos The position to check
+	 * @return <tt>true</tt> if there is a box at the position,
+	 *         <tt>false</tt> if not.
+	 */
+	public boolean isBoxAt(Position pos){
+		for (Position boxPos : this.boxPositions) {
+			if(pos.equals(boxPos))
+				return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Moves a box to a given position
 	 *  from a given valid position to an other valid position.
 	 * @param startPos The starting position
