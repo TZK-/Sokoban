@@ -1,7 +1,7 @@
 package fr.iutvalence.info.m2103.gui;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.awt.Label;
+
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
@@ -29,9 +29,13 @@ public class MainWindow implements Runnable{
 	 */
 	private JSplitPane verticalSplitPane;
 	
+	private LevelSelectionPanel levelSelectionPanel;
+	
 	private SokobanLevelGridPanel levelGridPanel;
 	
 	private Sokoban sokobanGame;
+	
+	private Label label;
 	
 	/**
 	 * Creates the main window
@@ -41,7 +45,9 @@ public class MainWindow implements Runnable{
 		this.sokobanGame = sokobanGame;
 		this.window = new JFrame();
 		this.verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		this.levelGridPanel = new SokobanLevelGridPanel(this.sokobanGame.getLevel());
+		this.levelSelectionPanel = new LevelSelectionPanel();
+		
+		//this.levelGridPanel = new SokobanLevelGridPanel(this.sokobanGame.getLevel());
 	}
 
 	/**
@@ -49,12 +55,15 @@ public class MainWindow implements Runnable{
 	 */
 	public void initGui(){
 		this.window.setTitle(SOKOBAN_APP_NAME);
-		this.window.setSize(this.levelGridPanel.getPanelSize());
+		this.window.setSize(DEFAULT_SIZE_X, DEFAULT_SIZE_Y);
 		this.window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		this.verticalSplitPane.add(this.levelGridPanel);
-		this.window.getContentPane().add(this.verticalSplitPane);
+		this.label = new Label("aa");
 		
+		this.verticalSplitPane.add(this.levelSelectionPanel);
+		this.verticalSplitPane.add(this.label);
+		this.window.getContentPane().add(this.verticalSplitPane);
+
 		this.window.setVisible(true);
 	}
 	
