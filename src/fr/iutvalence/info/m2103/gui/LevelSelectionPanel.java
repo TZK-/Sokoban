@@ -8,9 +8,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
 import fr.iutvalence.info.m2103.sokoban.Level;
-import fr.iutvalence.info.m2103.sokoban.MapLoader;
 
 public class LevelSelectionPanel extends JPanel implements ActionListener{
 
@@ -19,12 +17,24 @@ public class LevelSelectionPanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 4640854857338587932L;
 
+	/**
+	 * The level combo list
+	 */
 	private JComboBox<String> levelList;
 	
+	/**
+	 * The validation button
+	 */
 	private JButton validationButton;
 	
+	/**
+	 * The selected level
+	 */
 	private int selectedLevel;
 	
+	/**
+	 * Creates a new level selection panel
+	 */
 	public LevelSelectionPanel(){
 		
 		this.levelList = new JComboBox<String>(Level.getLevels());
@@ -52,5 +62,4 @@ public class LevelSelectionPanel extends JPanel implements ActionListener{
 	public int getSelectedLevel() {
 		return this.selectedLevel;
 	}
-	
 }

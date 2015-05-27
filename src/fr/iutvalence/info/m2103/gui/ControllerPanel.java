@@ -8,17 +8,41 @@ import javax.swing.JPanel;
 
 import fr.iutvalence.info.m2103.sokoban.Direction;
 
+/**
+ * Represents the controller panel.
+ */
 public class ControllerPanel extends JPanel{
 
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = 2276797078024689626L;
+
+	/**
+	 * The up button
+	 */
 	private JButtonDirection upButton;
 	
+	/**
+	 * The down button
+	 */
 	private JButtonDirection downButton;
 	
+	/**
+	 * The left button
+	 */
 	private JButtonDirection leftButton;
 	
+	/**
+	 * The right button
+	 */
 	private JButtonDirection rightButton;
 	
 	
+	/**
+	 * Creates the controller panel
+	 * @param event The event manager
+	 */
 	public ControllerPanel(ActionListener event){
 		this.upButton = new JButtonDirection("U", Direction.UP);
 		this.downButton = new JButtonDirection("D", Direction.DOWN);
@@ -53,22 +77,30 @@ public class ControllerPanel extends JPanel{
 		
 	}
 
-
+	/**
+	 * @return The up button
+	 */
 	public JButtonDirection getUpButton() {
 		return this.upButton;
 	}
 
-
+	/**
+	 * @return The down button
+	 */
 	public JButtonDirection getDownButton() {
 		return this.downButton;
 	}
 
-
+	/**
+	 * @return The left button
+	 */
 	public JButtonDirection getLeftButton() {
 		return this.leftButton;
 	}
 
-
+	/**
+	 * @return The right button
+	 */
 	public JButtonDirection getRightButton() {
 		return this.rightButton;
 	}

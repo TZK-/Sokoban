@@ -18,7 +18,8 @@ import fr.iutvalence.info.m2103.sokoban.Direction;
 import fr.iutvalence.info.m2103.sokoban.Level;
 
 /**
- * 
+ * Represents the main window of the Sokoban game.
+ * It displays the level and the controller buttons.
  */
 public class MainWindow implements Runnable, ActionListener, PlayerInteraction, Display{
 
@@ -75,6 +76,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	/**
 	 * The copy of the level at its creation
 	 */
+	@SuppressWarnings("unused")
 	private Level beginingLevelCopie;
 	
 	/**
@@ -136,7 +138,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		
 		this.window.getContentPane().add(this.mainSplitPanel);
 		
-		this.window.setResizable(false);
+		//this.window.setResizable(false);
 		this.window.setVisible(true);
 	}
 
@@ -167,7 +169,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		do{
 			if(this.isDirectionChoose)
 				returnDir = true;
-			System.out.println();
+			System.out.println(); // TODO ???
 		}while(!returnDir);
 	
 		this.isDirectionChoose = false;

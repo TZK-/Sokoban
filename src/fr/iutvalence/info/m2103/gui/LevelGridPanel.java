@@ -33,7 +33,7 @@ public class LevelGridPanel extends JPanel{
 	 */
 	public LevelGridPanel(Level level) {
 		super();
-		this.message = new JLabel("");
+		this.message = new JLabel("Message: ");
 		
 		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		JPanel gridMap = new JPanel();
@@ -73,7 +73,6 @@ public class LevelGridPanel extends JPanel{
 		
 		splitPane.add(this.message);
 		splitPane.add(gridMap);
-		splitPane.setDividerSize(0);
 		
 		this.add(splitPane);
 	}
