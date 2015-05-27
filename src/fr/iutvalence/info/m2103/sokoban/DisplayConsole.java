@@ -22,11 +22,6 @@ public class DisplayConsole implements Display{
 	}
 
 	@Override
-	public void displayWinMessage(int turn) {
-		this.displayMessage("Won in " + turn + "turns !");
-	}
-
-	@Override
 	public void displayLevel(Level level) {
 		System.out.println(level);
 	}

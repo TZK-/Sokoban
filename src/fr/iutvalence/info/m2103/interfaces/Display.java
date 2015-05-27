@@ -24,10 +24,4 @@ public interface Display {
 	 */
 	public void displayLevel(Level level);
 	
-	/**
-	 * Displays the win message
-	 * @param turn The number of the final winning turn
-	 */
-	public void displayWinMessage(int turn);
-	
 }

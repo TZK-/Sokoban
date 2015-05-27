@@ -18,7 +18,7 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
  * 
  * @see "http://en.wikipedia.org/wiki/Sokoban"
  */
-public class Sokoban implements Runnable {
+public class Sokoban {
 
 	/**
 	 * The game level
@@ -153,7 +153,7 @@ public class Sokoban implements Runnable {
 			e.printStackTrace();
 		}
 		
-		this.display.displayMessage("Level " + this.level.getLevelNumber());
+		this.display.displayMessage("Level " + levelNumber);
 
 		while (true)
 		{
@@ -161,7 +161,7 @@ public class Sokoban implements Runnable {
 			this.display.displayLevel(this.level);
 			
 			if(this.isGameFinished()){
-				this.display.displayWinMessage(turn);
+				this.display.displayMessage("You have won the level " + levelNumber + " in " + turn + " turns");
 				this.player.askToQuit();
 			}
 			
@@ -182,11 +182,6 @@ public class Sokoban implements Runnable {
 	 */
 	public Level getLevel() {
 		return this.level;
-	}
-
-	@Override
-	public void run() {
-		this.play();
 	}
 	
 }

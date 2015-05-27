@@ -1,11 +1,13 @@
 package fr.iutvalence.info.m2103.gui;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
+import fr.iutvalence.info.m2103.sokoban.FixedMapElement;
 import fr.iutvalence.info.m2103.sokoban.Level;
 import fr.iutvalence.info.m2103.sokoban.Position;
 
@@ -20,9 +22,9 @@ public class LevelGridPanel extends JPanel{
 	private static final long serialVersionUID = 4650266191907566738L;
 	
 	/**
-	 * The sprite map element dimension
+	 * The printed messages on the screen
 	 */
-	private Dimension panelSize;
+	private JLabel message;
 	
 	/**
 	 * Creates a new level grid panel.
@@ -31,43 +33,53 @@ public class LevelGridPanel extends JPanel{
 	 */
 	public LevelGridPanel(Level level) {
 		super();
-		this.setLayout(new GridLayout(level.getMapHeight(), level.getMapWidth()));
+		this.message = new JLabel("");
+		
+		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		JPanel gridMap = new JPanel();
+		
+		gridMap.setLayout(new GridLayout(level.getMapHeight(), level.getMapWidth()));
 		ImageIcon ico = null;
 		for (int line = 0; line < level.getMapHeight(); line++) {
 			for (int column = 0; column < level.getMapWidth(); column++) {
 				Position pos = new Position(line, column);
 				switch (level.getFixedMapElement(pos)) {
-				case FLOOR:
-					ico = new ImageIcon(this.getClass().getResource("/ressources/floor.gif"));
-					break;
-				case WALL:
-					ico = new ImageIcon(this.getClass().getResource("/ressources/wall.jpg"));
-					break;
-				case TARGET:
-					ico = new ImageIcon(this.getClass().getResource("/ressources/target.png"));
-					break;
-				default:
-					break;
+					case FLOOR:
+						ico = new ImageIcon();
+						break;
+					case WALL:
+						ico = new ImageIcon(this.getClass().getResource("/ressources/wall.jpg"));
+						break;
+					case TARGET:
+							ico = new ImageIcon(this.getClass().getResource("/ressources/target.png"));
+						break;
+					default:
+						break;
 				}
 				
 				if(pos.equals(level.getCharacterPosition()))
 					ico = new ImageIcon(this.getClass().getResource("/ressources/character.gif"));
-				if(level.isBoxAt(pos))
-					ico = new ImageIcon(this.getClass().getResource("/ressources/box.jpg"));
+				if(level.isBoxAt(pos)){
+					if(level.getFixedMapElement(pos) == FixedMapElement.TARGET)
+						ico = new ImageIcon(this.getClass().getResource("/ressources/boxOnTarget.jpg"));
+					else
+						ico = new ImageIcon(this.getClass().getResource("/ressources/box.jpg"));
+				}
 				
-				LevelMapElement levelElement = new LevelMapElement(ico, pos);
-				this.add(levelElement);
+				MapElementLabel levelElement = new MapElementLabel(ico, pos);
+				gridMap.add(levelElement);
 			}
 		}
 		
-		this.panelSize = new Dimension(ico.getIconHeight() * level.getMapHeight(), ico.getIconWidth() * level.getMapWidth());
+		splitPane.add(this.message);
+		splitPane.add(gridMap);
+		splitPane.setDividerSize(0);
+		
+		this.add(splitPane);
 	}
 
-	/**
-	 * @return the panel size
-	 */
-	public Dimension getPanelSize() {
-		return this.panelSize;
+	public void setMessage(String msg) {
+		this.message.setText(msg);
 	}
 
 }

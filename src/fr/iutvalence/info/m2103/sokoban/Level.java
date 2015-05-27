@@ -9,7 +9,7 @@ import java.net.URL;
  * Represents a level of Sokoban.
  * It is composed with WALLS, TARGETS and a CHARACTER.
  */
-public class Level {
+public class Level implements Cloneable{
 	
 	/**
 	 * The folder containing all the levels file
@@ -329,4 +329,8 @@ public class Level {
 		return str;
 	}
 
+	@Override
+	public Level clone() throws CloneNotSupportedException {   
+		return (Level) super.clone();
+	}  
 }

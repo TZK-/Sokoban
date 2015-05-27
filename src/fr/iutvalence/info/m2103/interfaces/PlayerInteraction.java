@@ -20,7 +20,7 @@ public interface PlayerInteraction{
 	public int askLevelToPlay();
 	
 	/**
-	 * Leaves the game
+	 * Asks to leave the game
 	 */
 	public void askToQuit();
 	

@@ -9,7 +9,7 @@ import fr.iutvalence.info.m2103.sokoban.Position;
  * Represents a level map element (CHARACTER, BOX, TARGET...).
  * @see fr.iutvalence.info.m2103.sokoban.Level
  */
-public class LevelMapElement extends JLabel{
+public class MapElementLabel extends JLabel{
 
 	/**
 	 * Serial Version UID
@@ -18,7 +18,7 @@ public class LevelMapElement extends JLabel{
 
 	private Position position;
 
-	public LevelMapElement(ImageIcon icon, Position pos) {
+	public MapElementLabel(ImageIcon icon, Position pos) {
 		super(icon);
 		this.position = pos;
 	}

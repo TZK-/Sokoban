@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
@@ -14,7 +16,6 @@ import fr.iutvalence.info.m2103.interfaces.Display;
 import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 import fr.iutvalence.info.m2103.sokoban.Direction;
 import fr.iutvalence.info.m2103.sokoban.Level;
-import fr.iutvalence.info.m2103.sokoban.Sokoban;
 
 /**
  * 
@@ -25,7 +26,6 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	 * The application's name
 	 */
 	private static final String SOKOBAN_APP_NAME = "Sokoban";
-
 
 	/**
 	 * The main window
@@ -40,12 +40,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	/**
 	 * The vertical pane containing the level grid panel
 	 */
-	private JSplitPane splitPaneLevelGrid;
-	
-	/**
-	 * The vertical pane containing the controller panel
-	 */
-	private JSplitPane splitPaneController;
+	private JSplitPane secondSplitPane;
 	
 	/**
 	 * The quit button
@@ -58,11 +53,6 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	private JButton resetLevelButton;
 	
 	/**
-	 * The level selection panel
-	 */
-	private LevelSelectionPanel levelSelectionPanel;
-	
-	/**
 	 * The level grid panel
 	 */
 	private LevelGridPanel levelGridPanel;
@@ -71,36 +61,58 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	 * The controller panel
 	 */
 	private ControllerPanel controllerPanel;
-	
 
-
+	/**
+	 * The chosen direction
+	 */
 	private Direction chosenDirection;
 	
+	/**
+	 * <tt>True</tt> if a direction has been choose.
+	 */
 	private boolean isDirectionChoose;
 	
 	/**
-	 * Creates the main window
-	 * @param sokobanGame The sokoban game
+	 * The copy of the level at its creation
+	 */
+	private Level beginingLevelCopie;
+	
+	/**
+	 * Creates the main window.
 	 */
 	public MainWindow() {
 		super();
-		this.window = new JFrame();
 		
+		this.chosenDirection = null;
+		this.isDirectionChoose = false;
+		
+		/*
+		 * Creating Objects instances
+		 */
+		this.window = new JFrame();
 		this.mainSplitPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		this.splitPaneLevelGrid = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		this.splitPaneController = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		this.secondSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+
+		this.controllerPanel = new ControllerPanel(this);
+		
+		// FIXME Add selection level
+		Level levelToPlay = new Level();
+		this.beginingLevelCopie = null;
+		try {
+			this.beginingLevelCopie = levelToPlay.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		this.levelGridPanel = new LevelGridPanel(levelToPlay);
 		
 		this.quitButton = new JButton("Quit");
 		this.resetLevelButton = new JButton("Reset");
 		
+		/*
+		 * Setting Listener
+		 */
 		this.quitButton.addActionListener(this);
 		this.resetLevelButton.addActionListener(this);
-		
-		this.levelSelectionPanel = new LevelSelectionPanel();
-
-		this.controllerPanel = new ControllerPanel(this);
-
-		this.isDirectionChoose = false;
 	}
 
 	/**
@@ -108,28 +120,24 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	 */
 	public void initGui(){
 		this.window.setTitle(SOKOBAN_APP_NAME);
-		this.window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		JPanel quitPanel = new JPanel();
 		quitPanel.add(this.resetLevelButton);
 		quitPanel.add(this.quitButton);
 		
-		this.mainSplitPanel.add(this.levelSelectionPanel);
-		this.mainSplitPanel.add(this.splitPaneLevelGrid);
-		this.splitPaneLevelGrid.add(this.splitPaneController);
-		this.splitPaneController.add(this.controllerPanel);
-		this.splitPaneController.add(quitPanel);
+		this.mainSplitPanel.add(this.levelGridPanel);
+		this.mainSplitPanel.add(this.secondSplitPane);
+		this.secondSplitPane.add(this.controllerPanel);
+		this.secondSplitPane.add(quitPanel);
+		
+		this.mainSplitPanel.setDividerSize(0);
+		this.secondSplitPane.setDividerSize(0);
 		
 		this.window.getContentPane().add(this.mainSplitPanel);
 		
-		this.window.pack();
 		this.window.setResizable(false);
 		this.window.setVisible(true);
-	}
-	
-	@Override
-	public void run() {
-		this.initGui();
 	}
 
 	@Override
@@ -139,57 +147,69 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		if(source == this.quitButton)
 			this.askToQuit();
 		if(source == this.resetLevelButton){
-			//TODO
+			
 		}
 		
-		if(source == this.controllerPanel){
+		if(source == this.controllerPanel.getDownButton()
+				|| source == this.controllerPanel.getUpButton()
+				|| source == this.controllerPanel.getLeftButton()
+				|| source == this.controllerPanel.getRightButton()){
 			JButtonDirection sourceDirection = (JButtonDirection) source;
-			this.isDirectionChoose = true;
 			this.chosenDirection = sourceDirection.getDirection();
+			this.isDirectionChoose = true;
 		}
 			
 	}
 
 	@Override
 	public Direction askDirection() {
-		while(true){
+		boolean returnDir = false;
+		do{
 			if(this.isDirectionChoose)
-				break;
-		}
+				returnDir = true;
+			System.out.println();
+		}while(!returnDir);
+	
 		this.isDirectionChoose = false;
 		return this.chosenDirection;
 	}
 
 	@Override
-	public int askLevelToPlay() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void askToQuit() {
+
+		JDialog.setDefaultLookAndFeelDecorated(true);
+		int response = JOptionPane.showConfirmDialog(null, "Do you want to quit?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (response == JOptionPane.YES_OPTION)
+			System.exit(0);
 	}
 
 	@Override
-	public void askToQuit() {
-		System.exit(0);
+	public int askLevelToPlay() {
+		/* TODO Adding a new starting window which permits to select the level to play.
+		 * For the moment, it will return the level 1
+		 */
+		return 1;
 	}
-
+	
 	@Override
 	public void displayMessage(String msg) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void displayStartingMessage() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void displayWinMessage(int turn) {
-		// TODO Auto-generated method stub
+		this.levelGridPanel.setMessage(msg);
 	}
 
 	@Override
 	public void displayLevel(Level level) {
 		this.levelGridPanel = new LevelGridPanel(level);
-		this.splitPaneLevelGrid.add(this.levelGridPanel);
+		this.mainSplitPanel.setTopComponent(this.levelGridPanel);
+		this.window.pack();
 	}
-
+	
+	@Override
+	public void displayStartingMessage() {
+		// TOTO Adding starting message to the level selection window
+	}
+	
+	@Override
+	public void run() {
+		this.initGui();
+	}
 }
