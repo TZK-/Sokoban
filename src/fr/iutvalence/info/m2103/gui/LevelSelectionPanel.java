@@ -23,13 +23,12 @@ public class LevelSelectionPanel extends JPanel implements ActionListener{
 	
 	private JButton validationButton;
 	
-	private Level selectedLevel;
+	private int selectedLevel;
 	
 	public LevelSelectionPanel(){
 		
 		this.levelList = new JComboBox<String>(Level.getLevels());
 		this.validationButton = new JButton("Validate");
-		this.selectedLevel = null;
 		
 		this.add(this.levelList);
 		this.add(this.validationButton);
@@ -43,18 +42,14 @@ public class LevelSelectionPanel extends JPanel implements ActionListener{
 		JComponent source = (JComponent) e.getSource();
 		
 		if(source == this.validationButton){
-			try {
-				this.selectedLevel = new MapLoader((String) this.levelList.getSelectedItem(), this.levelList.getSelectedIndex()).load();
-			} catch (PlayerNotPlacedException e1) {
-				e1.printStackTrace();
-			}
+			this.selectedLevel = this.levelList.getSelectedIndex();
 		}
 	}
 
 	/**
 	 * @return the selectedLevel
 	 */
-	public Level getSelectedLevel() {
+	public int getSelectedLevel() {
 		return this.selectedLevel;
 	}
 	

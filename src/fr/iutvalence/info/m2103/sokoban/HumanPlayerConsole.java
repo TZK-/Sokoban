@@ -28,7 +28,7 @@ public class HumanPlayerConsole implements PlayerInteraction{
 	}
 
 	@Override
-	public Direction askAction() {
+	public Direction askDirection() {
 		Direction dir = null;
 		while(dir == null){
 			this.display.displayMessage("Choice (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  9: Exit  ): ");

@@ -12,7 +12,7 @@ import fr.iutvalence.info.m2103.sokoban.Position;
 /**
  * Panel containing the level's map representation
  */
-public class SokobanLevelGridPanel extends JPanel{
+public class LevelGridPanel extends JPanel{
 
 	/**
 	 * Serial Version UID
@@ -29,7 +29,7 @@ public class SokobanLevelGridPanel extends JPanel{
 	 * It generates a graphic display of the given level
 	 * @param level The current level
 	 */
-	public SokobanLevelGridPanel(Level level) {
+	public LevelGridPanel(Level level) {
 		super();
 		this.setLayout(new GridLayout(level.getMapHeight(), level.getMapWidth()));
 		ImageIcon ico = null;

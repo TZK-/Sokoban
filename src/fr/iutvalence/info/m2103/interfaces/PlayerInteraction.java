@@ -11,7 +11,7 @@ public interface PlayerInteraction{
 	 * Asks to the player a direction to move
 	 * @return The direction given by the player
 	 */
-	public Direction askAction();
+	public Direction askDirection();
 	
 	/**
 	 * Asks to the player a level to play

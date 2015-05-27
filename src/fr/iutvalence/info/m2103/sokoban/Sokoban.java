@@ -18,7 +18,7 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
  * 
  * @see "http://en.wikipedia.org/wiki/Sokoban"
  */
-public class Sokoban {
+public class Sokoban implements Runnable {
 
 	/**
 	 * The game level
@@ -158,14 +158,14 @@ public class Sokoban {
 		while (true)
 		{
 			
-			this.display.displayMessage(this.level.toString());
+			this.display.displayLevel(this.level);
 			
 			if(this.isGameFinished()){
 				this.display.displayWinMessage(turn);
 				this.player.askToQuit();
 			}
 			
-			this.moveCharacter(this.player.askAction());
+			this.moveCharacter(this.player.askDirection());
 			turn++;
 		}
 	}
@@ -182,6 +182,11 @@ public class Sokoban {
 	 */
 	public Level getLevel() {
 		return this.level;
+	}
+
+	@Override
+	public void run() {
+		this.play();
 	}
 	
 }

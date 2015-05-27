@@ -1,5 +1,7 @@
 package fr.iutvalence.info.m2103.interfaces;
 
+import fr.iutvalence.info.m2103.sokoban.Level;
+
 /**
  * Manages the display of the game
  */
@@ -15,6 +17,12 @@ public interface Display {
 	 * Displays the starting message
 	 */
 	public void displayStartingMessage();
+	
+	/**
+	 * Displays the level
+	 * @param level The level
+	 */
+	public void displayLevel(Level level);
 	
 	/**
 	 * Displays the win message

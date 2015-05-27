@@ -26,4 +26,9 @@ public class DisplayConsole implements Display{
 		this.displayMessage("Won in " + turn + "turns !");
 	}
 
+	@Override
+	public void displayLevel(Level level) {
+		System.out.println(level);
+	}
+
 }

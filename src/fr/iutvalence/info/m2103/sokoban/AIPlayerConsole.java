@@ -10,7 +10,7 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 public class AIPlayerConsole implements PlayerInteraction{
 
 	@Override
-	public Direction askAction() {
+	public Direction askDirection() {
 		return Direction.getRandomDirection();
 	}
 
