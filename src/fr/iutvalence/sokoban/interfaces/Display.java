@@ -1,6 +1,6 @@
-package fr.iutvalence.info.m2103.interfaces;
+package fr.iutvalence.sokoban.interfaces;
 
-import fr.iutvalence.info.m2103.sokoban.Level;
+import fr.iutvalence.sokoban.core.Level;
 
 /**
  * Manages the display of the game

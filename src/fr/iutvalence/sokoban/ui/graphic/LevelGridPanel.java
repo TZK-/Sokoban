@@ -1,4 +1,4 @@
-package fr.iutvalence.info.m2103.gui;
+package fr.iutvalence.sokoban.ui.graphic;
 
 import java.awt.GridLayout;
 
@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import fr.iutvalence.info.m2103.sokoban.FixedMapElement;
-import fr.iutvalence.info.m2103.sokoban.Level;
-import fr.iutvalence.info.m2103.sokoban.Position;
+import fr.iutvalence.sokoban.core.FixedMapElement;
+import fr.iutvalence.sokoban.core.Level;
+import fr.iutvalence.sokoban.core.Position;
 
 /**
  * Panel containing the level's map representation

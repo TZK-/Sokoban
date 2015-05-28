@@ -1,4 +1,4 @@
-package fr.iutvalence.info.m2103.gui;
+package fr.iutvalence.sokoban.ui.graphic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
-import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
-import fr.iutvalence.info.m2103.interfaces.Display;
-import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
-import fr.iutvalence.info.m2103.sokoban.Direction;
-import fr.iutvalence.info.m2103.sokoban.Level;
-import fr.iutvalence.info.m2103.sokoban.MapLoader;
+import fr.iutvalence.sokoban.core.Direction;
+import fr.iutvalence.sokoban.core.Level;
+import fr.iutvalence.sokoban.core.MapLoader;
+import fr.iutvalence.sokoban.exceptions.PlayerNotPlacedException;
+import fr.iutvalence.sokoban.interfaces.Display;
+import fr.iutvalence.sokoban.interfaces.PlayerInteraction;
 
 /**
  * Represents the main window of the Sokoban game.

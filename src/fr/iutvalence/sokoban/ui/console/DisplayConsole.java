@@ -1,6 +1,7 @@
-package fr.iutvalence.info.m2103.sokoban;
+package fr.iutvalence.sokoban.ui.console;
 
-import fr.iutvalence.info.m2103.interfaces.Display;
+import fr.iutvalence.sokoban.core.Level;
+import fr.iutvalence.sokoban.interfaces.Display;
 
 /**
  * Manages the console display

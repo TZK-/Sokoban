@@ -1,4 +1,4 @@
-package fr.iutvalence.info.m2103.sokoban;
+package fr.iutvalence.sokoban.core;
 
 /**
  * Represents a position

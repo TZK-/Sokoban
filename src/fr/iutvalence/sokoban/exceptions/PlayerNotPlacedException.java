@@ -1,4 +1,4 @@
-package fr.iutvalence.info.m2103.exceptions;
+package fr.iutvalence.sokoban.exceptions;
 
 /**
  * Exception raised when the player is not placed on the map.

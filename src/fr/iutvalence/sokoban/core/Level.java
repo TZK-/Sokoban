@@ -1,4 +1,4 @@
-package fr.iutvalence.info.m2103.sokoban;
+package fr.iutvalence.sokoban.core;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -73,7 +73,7 @@ public class Level implements Cloneable{
 	
 	/**
 	 * 2D grid of fixedElements
-	 * @see fr.iutvalence.info.m2103.sokoban.FixedMapElement
+	 * @see fr.iutvalence.sokoban.core.FixedMapElement
 	 */ 
 	private FixedMapElement[][] fixedElements;
 	

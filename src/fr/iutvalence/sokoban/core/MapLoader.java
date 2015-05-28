@@ -1,6 +1,6 @@
-package fr.iutvalence.info.m2103.sokoban;
+package fr.iutvalence.sokoban.core;
 
-import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
+import fr.iutvalence.sokoban.exceptions.PlayerNotPlacedException;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +38,7 @@ public class MapLoader{
 	
 	/**
 	 * 2D grid of fixedElements
-	 * @see fr.iutvalence.info.m2103.sokoban.FixedMapElement
+	 * @see fr.iutvalence.sokoban.core.FixedMapElement
 	 */ 
 	private FixedMapElement[][] fixedElements;
 	

@@ -1,4 +1,4 @@
-package fr.iutvalence.info.m2103.gui;
+package fr.iutvalence.sokoban.ui.graphic;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import fr.iutvalence.info.m2103.sokoban.Direction;
+import fr.iutvalence.sokoban.core.Direction;
 
 /**
  * Represents the controller panel.

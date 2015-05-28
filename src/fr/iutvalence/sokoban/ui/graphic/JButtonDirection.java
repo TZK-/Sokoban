@@ -1,8 +1,8 @@
-package fr.iutvalence.info.m2103.gui;
+package fr.iutvalence.sokoban.ui.graphic;
 
 import javax.swing.JButton;
 
-import fr.iutvalence.info.m2103.sokoban.Direction;
+import fr.iutvalence.sokoban.core.Direction;
 
 /**
  * Represents a button used for the displacement

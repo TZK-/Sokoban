@@ -1,6 +1,6 @@
-package fr.iutvalence.info.m2103.interfaces;
+package fr.iutvalence.sokoban.interfaces;
 
-import fr.iutvalence.info.m2103.sokoban.Direction;
+import fr.iutvalence.sokoban.core.Direction;
 
 /**
  * Manages the interactions with the player.

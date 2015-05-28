@@ -1,13 +1,13 @@
-package fr.iutvalence.info.m2103.gui;
+package fr.iutvalence.sokoban.ui.graphic;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import fr.iutvalence.info.m2103.sokoban.Position;
+import fr.iutvalence.sokoban.core.Position;
 
 /**
  * Represents a level map element (CHARACTER, BOX, TARGET...).
- * @see fr.iutvalence.info.m2103.sokoban.Level
+ * @see fr.iutvalence.sokoban.core.Level
  */
 public class MapElementLabel extends JLabel{
 

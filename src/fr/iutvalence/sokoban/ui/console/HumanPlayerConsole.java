@@ -1,8 +1,10 @@
-package fr.iutvalence.info.m2103.sokoban;
+package fr.iutvalence.sokoban.ui.console;
 
 import java.util.Scanner;
 
-import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
+import fr.iutvalence.sokoban.core.Direction;
+import fr.iutvalence.sokoban.core.Level;
+import fr.iutvalence.sokoban.interfaces.PlayerInteraction;
 
 /**
  * Manages the interactions with a human player.

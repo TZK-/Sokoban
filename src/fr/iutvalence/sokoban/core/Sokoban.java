@@ -1,9 +1,9 @@
-package fr.iutvalence.info.m2103.sokoban;
+package fr.iutvalence.sokoban.core;
 
-import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
-import fr.iutvalence.info.m2103.interfaces.Display;
-import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
-import fr.iutvalence.info.m2103.interfaces.Resettable;
+import fr.iutvalence.sokoban.exceptions.PlayerNotPlacedException;
+import fr.iutvalence.sokoban.interfaces.Display;
+import fr.iutvalence.sokoban.interfaces.PlayerInteraction;
+import fr.iutvalence.sokoban.interfaces.Resettable;
 
 
 /**
@@ -155,7 +155,6 @@ public class Sokoban implements Resettable{
 		
 		int levelNumber = this.player.askLevelToPlay();
 		
-		
 		try {
 			this.level = new MapLoader(Level.getLevels()[levelNumber], levelNumber).load();
 			this.levelCopy = this.level.clone();
@@ -193,7 +192,7 @@ public class Sokoban implements Resettable{
 	/**
 	 * @param level The level to set
 	 */
-	public void setLevel(Level level) {
+	private void setLevel(Level level) {
 		this.level = level;
 	}
 
