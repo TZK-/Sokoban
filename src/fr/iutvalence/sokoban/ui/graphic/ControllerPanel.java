@@ -10,6 +10,7 @@ import fr.iutvalence.sokoban.core.Direction;
 
 /**
  * Represents the controller panel.
+ * It includes buttons to choose the direction to move
  */
 public class ControllerPanel extends JPanel{
 
