@@ -22,23 +22,14 @@ public class LevelGridPanel extends JPanel{
 	private static final long serialVersionUID = 4650266191907566738L;
 	
 	/**
-	 * The printed messages on the screen
-	 */
-	private JLabel message;
-	
-	/**
 	 * Creates a new level grid panel.
 	 * It generates a graphic display of the given level
 	 * @param level The current level
 	 */
 	public LevelGridPanel(Level level) {
 		super();
-		this.message = new JLabel("Message: ");
 		
-		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		JPanel gridMap = new JPanel();
-		
-		gridMap.setLayout(new GridLayout(level.getMapHeight(), level.getMapWidth()));
+		this.setLayout(new GridLayout(level.getMapHeight(), level.getMapWidth()));
 		ImageIcon ico = null;
 		for (int line = 0; line < level.getMapHeight(); line++) {
 			for (int column = 0; column < level.getMapWidth(); column++) {
@@ -67,18 +58,9 @@ public class LevelGridPanel extends JPanel{
 				}
 				
 				JLabel levelElement = new JLabel(ico);
-				gridMap.add(levelElement);
+				this.add(levelElement);
 			}
 		}
-		
-		splitPane.add(this.message);
-		splitPane.add(gridMap);
-		
-		this.add(splitPane);
-	}
-
-	public void setMessage(String msg) {
-		this.message.setText(msg);
 	}
 
 }
