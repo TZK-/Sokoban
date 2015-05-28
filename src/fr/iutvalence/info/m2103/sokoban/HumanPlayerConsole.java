@@ -30,26 +30,32 @@ public class HumanPlayerConsole implements PlayerInteraction{
 	@Override
 	public Direction askDirection() {
 		Direction dir = null;
-		while(dir == null){
+		boolean isDirectionChosen = false;
+		while(!isDirectionChosen){
 			this.display.displayMessage("Choice (  0:UP  |  1:RIGHT  |  2:DOWN  |  3:LEFT  |  8:RESET  |  9: Exit  ): ");
 			int choixDirection = this.sc.nextInt();
 		
 			switch (choixDirection) {
 				case 0:
 					dir = Direction.UP;
+					isDirectionChosen = true;
 					break;
 				case 1:
 					dir = Direction.RIGHT;
+					isDirectionChosen = true;
 					break;
 				case 2:
 					dir = Direction.DOWN;
+					isDirectionChosen = true;
 					break;
 				case 3:
 					dir = Direction.LEFT;
+					isDirectionChosen = true;
 					break;
 				case 8:
 					dir = null;
 					this.display.displayMessage("\tThe level has been resetted");
+					isDirectionChosen = true;
 					break;
 				case 9:
 					this.display.displayMessage("\tThe game has been quit");
