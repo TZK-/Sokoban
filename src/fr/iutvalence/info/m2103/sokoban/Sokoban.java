@@ -49,6 +49,8 @@ public class Sokoban implements Resettable{
 	public Sokoban(PlayerInteraction player, Display display){
 		this.player = player;
 		this.display = display;
+		this.level = null;
+		this.levelCopy = null;
 	}
 
 	/**
@@ -197,7 +199,11 @@ public class Sokoban implements Resettable{
 
 	@Override
 	public void resetLevel() {
-		this.setLevel(this.levelCopy);
+		try {
+			this.setLevel(this.levelCopy.clone());
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
