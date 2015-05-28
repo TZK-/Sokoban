@@ -162,6 +162,7 @@ public class MainWindow implements Runnable, ActionListener, KeyListener, Player
 			this.askToQuit();
 		if(source == this.resetLevelButton){
 			this.chosenDirection = null;
+			this.isDirectionChosen = true;
 		}
 		
 		if(source == this.controllerPanel.getDownButton()
