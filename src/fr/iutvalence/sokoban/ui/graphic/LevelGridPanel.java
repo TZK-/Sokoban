@@ -66,7 +66,7 @@ public class LevelGridPanel extends JPanel{
 						ico = new ImageIcon(this.getClass().getResource("/ressources/box.jpg"));
 				}
 				
-				MapElementLabel levelElement = new MapElementLabel(ico, pos);
+				JLabel levelElement = new JLabel(ico);
 				gridMap.add(levelElement);
 			}
 		}
