@@ -331,7 +331,12 @@ public class Level implements Cloneable{
 
 	@Override
 	public Level clone() throws CloneNotSupportedException {   
-		return (Level) super.clone();
+		Level copiedLevel =  (Level) super.clone();
+		
+		copiedLevel.boxPositions = this.boxPositions.clone();
+		copiedLevel.fixedElements = this.fixedElements.clone();
+		
+		return copiedLevel;
 	}
   
 }
