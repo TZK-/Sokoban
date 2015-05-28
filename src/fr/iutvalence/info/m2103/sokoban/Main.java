@@ -15,10 +15,10 @@ public class Main {
 	 * @param args command-line arguments (unused)
 	 */
 	public static void main(String[] args) {
-		//new Sokoban(new HumanPlayerConsole(), new DisplayConsole()).play();
-		MainWindow sokobanGUI = new MainWindow();
-		SwingUtilities.invokeLater(sokobanGUI);
-		new Sokoban(sokobanGUI, sokobanGUI).play();
+		new Sokoban(new HumanPlayerConsole(), new DisplayConsole()).play();
+		//MainWindow sokobanGUI = new MainWindow();
+		//SwingUtilities.invokeLater(sokobanGUI);
+		//new Sokoban(sokobanGUI, sokobanGUI).play();
 	}
 
 }

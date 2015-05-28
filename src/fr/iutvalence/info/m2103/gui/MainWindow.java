@@ -2,6 +2,8 @@ package fr.iutvalence.info.m2103.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -12,16 +14,18 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
+import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
 import fr.iutvalence.info.m2103.interfaces.Display;
 import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
 import fr.iutvalence.info.m2103.sokoban.Direction;
 import fr.iutvalence.info.m2103.sokoban.Level;
+import fr.iutvalence.info.m2103.sokoban.MapLoader;
 
 /**
  * Represents the main window of the Sokoban game.
  * It displays the level and the controller buttons.
  */
-public class MainWindow implements Runnable, ActionListener, PlayerInteraction, Display{
+public class MainWindow implements Runnable, ActionListener, KeyListener, PlayerInteraction, Display{
 
 	/**
 	 * The application's name
@@ -71,7 +75,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	/**
 	 * <tt>True</tt> if a direction has been choose.
 	 */
-	private boolean isDirectionChoose;
+	private volatile boolean isDirectionChosen;
 	
 	/**
 	 * The copy of the level at its creation
@@ -86,7 +90,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		super();
 		
 		this.chosenDirection = null;
-		this.isDirectionChoose = false;
+		this.isDirectionChosen = false;
 		
 		/*
 		 * Creating Objects instances
@@ -97,8 +101,13 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 
 		this.controllerPanel = new ControllerPanel(this);
 		
-		// FIXME Add selection level
-		Level levelToPlay = new Level();
+		// TODO Add selection level
+		Level levelToPlay = null;
+		try {
+			levelToPlay = new MapLoader("level0.txt", 0).load();
+		} catch (PlayerNotPlacedException e1) {
+			e1.printStackTrace();
+		}
 		this.beginingLevelCopie = null;
 		try {
 			this.beginingLevelCopie = levelToPlay.clone();
@@ -108,13 +117,16 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		this.levelGridPanel = new LevelGridPanel(levelToPlay);
 		
 		this.quitButton = new JButton("Quit");
+		this.quitButton.setFocusable(false);
 		this.resetLevelButton = new JButton("Reset");
+		this.resetLevelButton.setFocusable(false);
 		
 		/*
 		 * Setting Listener
 		 */
 		this.quitButton.addActionListener(this);
 		this.resetLevelButton.addActionListener(this);
+		this.window.addKeyListener(this);
 	}
 
 	/**
@@ -138,7 +150,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		
 		this.window.getContentPane().add(this.mainSplitPanel);
 		
-		//this.window.setResizable(false);
+		this.window.setResizable(false);
 		this.window.setVisible(true);
 	}
 
@@ -149,7 +161,7 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 		if(source == this.quitButton)
 			this.askToQuit();
 		if(source == this.resetLevelButton){
-			
+			this.chosenDirection = null;
 		}
 		
 		if(source == this.controllerPanel.getDownButton()
@@ -158,21 +170,19 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 				|| source == this.controllerPanel.getRightButton()){
 			JButtonDirection sourceDirection = (JButtonDirection) source;
 			this.chosenDirection = sourceDirection.getDirection();
-			this.isDirectionChoose = true;
+			this.isDirectionChosen = true;
 		}
 			
 	}
 
 	@Override
 	public Direction askDirection() {
-		boolean returnDir = false;
-		do{
-			if(this.isDirectionChoose)
-				returnDir = true;
-			System.out.println(); // TODO ???
-		}while(!returnDir);
+		
+		while (!this.isDirectionChosen) {
+			// Nothing to do
+		}
 	
-		this.isDirectionChoose = false;
+		this.isDirectionChosen = false;
 		return this.chosenDirection;
 	}
 
@@ -188,9 +198,9 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	@Override
 	public int askLevelToPlay() {
 		/* TODO Adding a new starting window which permits to select the level to play.
-		 * For the moment, it will return the level 1
+		 * For the moment, it will return the level with the index 3
 		 */
-		return 1;
+		return 3;
 	}
 	
 	@Override
@@ -213,5 +223,39 @@ public class MainWindow implements Runnable, ActionListener, PlayerInteraction, 
 	@Override
 	public void run() {
 		this.initGui();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent event) {
+		switch(event.getKeyChar()){
+			case 'z':
+				this.chosenDirection = Direction.UP;
+				this.isDirectionChosen = true;
+				break;
+			case 'q':
+				this.chosenDirection = Direction.LEFT;
+				this.isDirectionChosen = true;
+				break;
+			case 's':
+				this.chosenDirection = Direction.DOWN;
+				this.isDirectionChosen = true;
+				break;
+			case 'd':
+				this.chosenDirection = Direction.RIGHT;
+				this.isDirectionChosen = true;
+				break;
+			default:
+				break;
+		}
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent event) {
+		// Nothing to do
+	}
+
+	@Override
+	public void keyReleased(KeyEvent event) {
+		// Nothing to do
 	}
 }

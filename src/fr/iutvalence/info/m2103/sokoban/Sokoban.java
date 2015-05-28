@@ -3,6 +3,7 @@ package fr.iutvalence.info.m2103.sokoban;
 import fr.iutvalence.info.m2103.exceptions.PlayerNotPlacedException;
 import fr.iutvalence.info.m2103.interfaces.Display;
 import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
+import fr.iutvalence.info.m2103.interfaces.Resettable;
 
 
 /**
@@ -18,12 +19,17 @@ import fr.iutvalence.info.m2103.interfaces.PlayerInteraction;
  * 
  * @see "http://en.wikipedia.org/wiki/Sokoban"
  */
-public class Sokoban {
+public class Sokoban implements Resettable{
 
 	/**
 	 * The game level
 	 */
 	private Level level;
+	
+	/**
+	 * The copy of the level at its creation
+	 */
+	private Level levelCopy;
 
 	/**
 	 * The player
@@ -147,13 +153,17 @@ public class Sokoban {
 		
 		int levelNumber = this.player.askLevelToPlay();
 		
+		
 		try {
-			this.setLevel(new MapLoader(Level.getLevels()[levelNumber], levelNumber).load());
+			this.level = new MapLoader(Level.getLevels()[levelNumber], levelNumber).load();
+			this.levelCopy = this.level.clone();
 		} catch (PlayerNotPlacedException e) {
+			e.printStackTrace();
+		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
 		
-		this.display.displayMessage("Level " + levelNumber);
+		this.display.displayMessage("You are playing the level " + levelNumber);
 
 		while (true)
 		{
@@ -165,8 +175,16 @@ public class Sokoban {
 				this.player.askToQuit();
 			}
 			
-			this.moveCharacter(this.player.askDirection());
-			turn++;
+			Direction dirToMove = this.player.askDirection();
+			
+			if(dirToMove == null){
+				this.resetLevel();
+				turn = 0;
+			}
+			else{
+				this.moveCharacter(dirToMove);
+				turn++;
+			}
 		}
 	}
 
@@ -177,11 +195,9 @@ public class Sokoban {
 		this.level = level;
 	}
 
-	/**
-	 * @return the level
-	 */
-	public Level getLevel() {
-		return this.level;
+	@Override
+	public void resetLevel() {
+		this.setLevel(this.levelCopy);
 	}
 	
 }

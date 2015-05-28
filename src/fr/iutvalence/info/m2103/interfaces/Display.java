@@ -24,4 +24,10 @@ public interface Display {
 	 */
 	public void displayLevel(Level level);
 	
+//	/**
+//	 * Resets the level display
+//	 * @param level The level to reset
+//	 */
+//	public void resetLevelDisplay(Level level);
+	
 }

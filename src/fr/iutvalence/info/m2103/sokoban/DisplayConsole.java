@@ -23,7 +23,7 @@ public class DisplayConsole implements Display{
 
 	@Override
 	public void displayLevel(Level level) {
-		System.out.println(level);
+		System.out.println(level.toString());
 	}
 
 }

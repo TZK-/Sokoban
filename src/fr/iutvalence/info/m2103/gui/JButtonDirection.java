@@ -27,6 +27,7 @@ public class JButtonDirection extends JButton{
 	public JButtonDirection(String representation, Direction direction) {
 		super(representation);
 		this.direction = direction;
+		this.setFocusable(false);
 	}
 
 	/**
