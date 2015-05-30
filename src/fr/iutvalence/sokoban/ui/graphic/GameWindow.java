@@ -17,8 +17,7 @@ import javax.swing.WindowConstants;
 
 import fr.iutvalence.sokoban.core.Direction;
 import fr.iutvalence.sokoban.core.Level;
-import fr.iutvalence.sokoban.core.MapLoader;
-import fr.iutvalence.sokoban.exceptions.PlayerNotPlacedException;
+import fr.iutvalence.sokoban.core.Sokoban;
 import fr.iutvalence.sokoban.interfaces.Display;
 import fr.iutvalence.sokoban.interfaces.PlayerInteraction;
 
@@ -26,17 +25,7 @@ import fr.iutvalence.sokoban.interfaces.PlayerInteraction;
  * Represents the main window of the Sokoban game.
  * It displays the level and the controller buttons.
  */
-public class MainWindow implements Runnable, ActionListener, KeyListener, PlayerInteraction, Display{
-
-	/**
-	 * The application's name
-	 */
-	private static final String SOKOBAN_APP_NAME = "Sokoban";
-
-	/**
-	 * The main window
-	 */
-	private JFrame window;
+public class GameWindow extends JFrame implements ActionListener, KeyListener, PlayerInteraction, Display{
 
 	/**
 	 * The vertical pane containing all the split panel
@@ -89,18 +78,23 @@ public class MainWindow implements Runnable, ActionListener, KeyListener, Player
 	private volatile boolean isDirectionChosen;
 
 	/**
+	 * The selected level
+	 */
+	private int selectedLevel;
+	
+	/**
 	 * Creates the main window.
 	 */
-	public MainWindow() {
+	public GameWindow(int selectedLevel) {
 		super();
 
 		this.chosenDirection = null;
 		this.isDirectionChosen = false;
+		this.selectedLevel = selectedLevel;
 
 		/*
 		 * Creating Objects instances
 		 */
-		this.window = new JFrame();
 		this.mainSplitPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		this.secondSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		this.thirdSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -124,15 +118,15 @@ public class MainWindow implements Runnable, ActionListener, KeyListener, Player
 		 */
 		this.quitButton.addActionListener(this);
 		this.resetLevelButton.addActionListener(this);
-		this.window.addKeyListener(this);
+		this.getContentPane().addKeyListener(this);
 	}
 
 	/**
 	 * Initializes the window
 	 */
 	public void initGui(){
-		this.window.setTitle(SOKOBAN_APP_NAME);
-		this.window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setTitle(Sokoban.APP_NAME);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		JPanel quitPanel = new JPanel();
 		quitPanel.add(this.resetLevelButton);
@@ -146,11 +140,11 @@ public class MainWindow implements Runnable, ActionListener, KeyListener, Player
 		this.thirdSplitPane.add(this.controllerPanel);
 		this.thirdSplitPane.add(quitPanel);
 		
-		this.window.getContentPane().add(this.mainSplitPanel);
+		this.getContentPane().add(this.mainSplitPanel);
 
-		this.window.setResizable(false);
-		this.window.pack();
-		this.window.setVisible(true);
+		//this.window.setResizable(false);
+		this.pack();
+		this.setVisible(true);
 	}
 
 	@Override
@@ -160,6 +154,7 @@ public class MainWindow implements Runnable, ActionListener, KeyListener, Player
 		if(source == this.quitButton)
 			this.askToQuit();
 		if(source == this.resetLevelButton){
+			this.labelMessage.setText("Level resetted");
 			this.chosenDirection = null;
 			this.isDirectionChosen = true;
 		}
@@ -197,32 +192,25 @@ public class MainWindow implements Runnable, ActionListener, KeyListener, Player
 
 	@Override
 	public int askLevelToPlay() {
-		/* TODO Adding a new starting window which permits to select the level to play.
-		 * For the moment, it will return the level with the index 0
-		 */
-		return 0;
+		System.out.println(this.selectedLevel);
+		return this.selectedLevel;
 	}
 
 	@Override
 	public void displayMessage(String msg) {
-		this.labelMessage.setText("Sokoban: " + msg);
+		this.labelMessage.setText(msg);
 	}
 
 	@Override
 	public void displayLevel(Level level) {
 		this.levelGridPanel = new LevelGridPanel(level);
 		this.secondSplitPane.setTopComponent(this.levelGridPanel);
-		this.window.pack();
+		this.pack();
 	}
 
 	@Override
 	public void displayStartingMessage() {
-		// TOTO Adding starting message to the level selection window
-	}
-
-	@Override
-	public void run() {
-		this.initGui();
+		// Nothing to do
 	}
 
 	@Override

@@ -1,16 +1,14 @@
 package fr.iutvalence.sokoban.ui.graphic;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import fr.iutvalence.sokoban.core.Level;
 
-public class LevelSelectionPanel extends JPanel implements ActionListener{
+public class LevelSelectionPanel extends JPanel{
 
 	/**
 	 * Serial version UID
@@ -28,14 +26,9 @@ public class LevelSelectionPanel extends JPanel implements ActionListener{
 	private JButton validationButton;
 	
 	/**
-	 * The selected level
-	 */
-	private int selectedLevel;
-	
-	/**
 	 * Creates a new level selection panel
 	 */
-	public LevelSelectionPanel(){
+	public LevelSelectionPanel(ActionListener listener){
 		
 		this.levelList = new JComboBox<String>(Level.getLevels());
 		this.validationButton = new JButton("Validate");
@@ -43,23 +36,21 @@ public class LevelSelectionPanel extends JPanel implements ActionListener{
 		this.add(this.levelList);
 		this.add(this.validationButton);
 		
-		this.validationButton.addActionListener(this);
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JComponent source = (JComponent) e.getSource();
-		
-		if(source == this.validationButton){
-			this.selectedLevel = this.levelList.getSelectedIndex();
-		}
+		this.validationButton.addActionListener(listener);
 	}
 
 	/**
-	 * @return the selectedLevel
+	 * @return the validationButton
 	 */
-	public int getSelectedLevel() {
-		return this.selectedLevel;
+	public JButton getValidationButton() {
+		return this.validationButton;
 	}
+
+	/**
+	 * @return the levelList
+	 */
+	public JComboBox<String> getLevelList() {
+		return this.levelList;
+	}
+	
 }

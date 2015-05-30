@@ -21,6 +21,8 @@ import fr.iutvalence.sokoban.interfaces.Resettable;
  */
 public class Sokoban implements Resettable{
 
+	public static final String APP_NAME = "Sokoban";
+	
 	/**
 	 * The game level
 	 */
@@ -148,12 +150,10 @@ public class Sokoban implements Resettable{
 	 * If the game is won, it exits the Sokoban game.
 	 */
 	public void play() {
-		
+		int levelNumber = this.player.askLevelToPlay();
 		this.display.displayStartingMessage();
 		
 		int turn = 0;
-		
-		int levelNumber = this.player.askLevelToPlay();
 		
 		try {
 			this.level = new MapLoader(Level.getLevels()[levelNumber], levelNumber).load();
@@ -168,7 +168,6 @@ public class Sokoban implements Resettable{
 
 		while (true)
 		{
-			
 			this.display.displayLevel(this.level);
 			
 			if(this.isGameFinished()){

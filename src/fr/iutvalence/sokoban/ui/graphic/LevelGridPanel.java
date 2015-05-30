@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 
 import fr.iutvalence.sokoban.core.FixedMapElement;
 import fr.iutvalence.sokoban.core.Level;
