@@ -150,8 +150,9 @@ public class Sokoban implements Resettable{
 	 * If the game is won, it exits the Sokoban game.
 	 */
 	public void play() {
-		int levelNumber = this.player.askLevelToPlay();
 		this.display.displayStartingMessage();
+		
+		int levelNumber = this.player.askLevelToPlay();
 		
 		int turn = 0;
 		
