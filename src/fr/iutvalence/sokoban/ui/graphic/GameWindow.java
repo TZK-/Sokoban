@@ -111,14 +111,14 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, P
 		this.resetLevelButton = new JButton("Reset");
 		this.resetLevelButton.setFocusable(false);
 		
-		this.labelMessage = new JLabel();
+		this.labelMessage = new JLabel("ttt");
 		
 		/*
 		 * Setting Listener
 		 */
 		this.quitButton.addActionListener(this);
 		this.resetLevelButton.addActionListener(this);
-		this.getContentPane().addKeyListener(this);
+		this.addKeyListener(this);
 	}
 
 	/**
@@ -192,7 +192,6 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, P
 
 	@Override
 	public int askLevelToPlay() {
-		System.out.println(this.selectedLevel);
 		return this.selectedLevel;
 	}
 
@@ -216,24 +215,24 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, P
 	@Override
 	public void keyTyped(KeyEvent event) {
 		switch(event.getKeyChar()){
-		case 'z':
-			this.chosenDirection = Direction.UP;
-			this.isDirectionChosen = true;
-			break;
-		case 'q':
-			this.chosenDirection = Direction.LEFT;
-			this.isDirectionChosen = true;
-			break;
-		case 's':
-			this.chosenDirection = Direction.DOWN;
-			this.isDirectionChosen = true;
-			break;
-		case 'd':
-			this.chosenDirection = Direction.RIGHT;
-			this.isDirectionChosen = true;
-			break;
-		default:
-			break;
+			case 'z':
+				this.chosenDirection = Direction.UP;
+				this.isDirectionChosen = true;
+				break;
+			case 'q':
+				this.chosenDirection = Direction.LEFT;
+				this.isDirectionChosen = true;
+				break;
+			case 's':
+				this.chosenDirection = Direction.DOWN;
+				this.isDirectionChosen = true;
+				break;
+			case 'd':
+				this.chosenDirection = Direction.RIGHT;
+				this.isDirectionChosen = true;
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -246,4 +245,5 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, P
 	public void keyReleased(KeyEvent event) {
 		// Nothing to do
 	}
+
 }

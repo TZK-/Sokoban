@@ -37,9 +37,11 @@ public class MenuWindow extends JFrame implements ActionListener, Runnable{
 		JComponent source = (JComponent) event.getSource();
 		
 		if(source == this.levelSelectionPanel.getValidationButton()){
-			this.isLevelSelected = true;
 			this.gameWindow = new GameWindow(this.levelSelectionPanel.getLevelList().getSelectedIndex());
+			this.isLevelSelected = true;
+			
 			this.gameWindow.initGui();
+			
 			this.dispose();
 		}
 	}
