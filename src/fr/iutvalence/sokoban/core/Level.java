@@ -14,7 +14,7 @@ public class Level implements Cloneable{
 	/**
 	 * The folder containing all the levels file
 	 */
-	public static final String LEVELS_FOLDER = "/levels";
+	public static final String LEVELS_FOLDER = "levels";
 	
 	/**
 	 * The default level number
@@ -262,15 +262,7 @@ public class Level implements Cloneable{
 	 * @return The name of the existing levels into the Levels folder.
 	 */
 	public static String[] getLevels(){
-		
-		URL levelsUrl = MapLoader.class.getResource(Level.LEVELS_FOLDER);
-		File levelsPath = null;
-		try {
-			levelsPath = new File(levelsUrl.toURI());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		
+		File levelsPath = new File(Level.LEVELS_FOLDER);
 		return levelsPath.list();
 	}
 	

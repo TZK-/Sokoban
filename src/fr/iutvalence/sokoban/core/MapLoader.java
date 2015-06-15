@@ -59,10 +59,10 @@ public class MapLoader{
 	
 	/**
 	 * Initializes the MapLoader.
-	 * @param levelPath The level path
+	 * @param levelName The level name
 	 * @param levelNumber The level number
 	 */
-	public MapLoader(String levelPath, int levelNumber) {
+	public MapLoader(String levelName, int levelNumber) {
 		this.fixedElements = null;
 		this.boxPositions = new ArrayList<Position>();
 		this.characterPosition = null;
@@ -70,13 +70,8 @@ public class MapLoader{
 		this.mapWidth = 0;
 		this.levelNumber = levelNumber;
 		
-		URL levelURL = this.getClass().getResource(Level.LEVELS_FOLDER + File.separator + levelPath);
-		
-		try {
-			this.levelFile = new File(levelURL.toURI());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+		this.levelFile = new File(Level.LEVELS_FOLDER + File.separator + levelName);
+
 	}
 	
 	/**
